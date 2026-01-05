@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @task-process/builder build",
+  "buildCommand": "cd ../.. && pnpm install --frozen-lockfile --filter @task-process/builder && pnpm --filter @task-process/builder build",
   "outputDirectory": "dist",
   "installCommand": "echo 'Skipping install, using buildCommand'",
   "framework": "vite",
