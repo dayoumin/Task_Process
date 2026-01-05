@@ -1,0 +1,173 @@
+{
+  "id": "PROC-20260104-0003",
+  "name": "연차 휴가 신청 프로세스",
+  "version": "1.0.0",
+  "description": "연차 휴가를 신청하고 승인받는 절차",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-DEV",
+    "departmentName": "개발팀",
+    "processType": "LEAVE",
+    "priority": "low",
+    "assignedTo": "USER-34567",
+    "assignedToName": "이철수",
+    "dueDate": "2026-01-07T17:00:00Z",
+    "estimatedHours": 0.5
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "휴가 정보 입력",
+      "description": "휴가 날짜와 사유를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "내 연차 잔여 일수 확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "팀 일정 확인 (중요 회의, 마감일 등)",
+          "required": true
+        },
+        {
+          "id": "check-3",
+          "text": "업무 인수인계 계획 수립",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "date",
+          "label": "휴가 시작일",
+          "required": true
+        },
+        {
+          "id": "field-2",
+          "type": "date",
+          "label": "휴가 종료일",
+          "required": true
+        },
+        {
+          "id": "field-3",
+          "type": "number",
+          "label": "사용 연차 일수",
+          "required": true,
+          "placeholder": "1"
+        },
+        {
+          "id": "field-4",
+          "type": "text",
+          "label": "휴가 사유",
+          "required": true,
+          "placeholder": "개인 사유, 가족 행사 등"
+        },
+        {
+          "id": "field-5",
+          "type": "text",
+          "label": "비상 연락처",
+          "required": false,
+          "placeholder": "010-1234-5678"
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "업무 인수인계",
+      "description": "휴가 중 처리해야 할 업무를 인계하세요",
+      "checklist": [
+        {
+          "id": "check-4",
+          "text": "진행 중인 업무 목록 작성 완료",
+          "required": true
+        },
+        {
+          "id": "check-5",
+          "text": "대리자 지정 완료",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "text": "대리자에게 업무 인수인계 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-6",
+          "type": "text",
+          "label": "업무 대리자",
+          "required": true,
+          "placeholder": "박대리"
+        },
+        {
+          "id": "field-7",
+          "type": "textarea",
+          "label": "인수인계 사항",
+          "required": true,
+          "placeholder": "진행 중인 업무, 처리 방법, 주의사항 등을 상세히 작성하세요"
+        },
+        {
+          "id": "field-8",
+          "type": "file",
+          "label": "인수인계 문서 (선택)",
+          "required": false,
+          "validation": {
+            "accept": ".pdf,.docx,.xlsx",
+            "maxSize": 5242880
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "최종 확인 및 승인 요청",
+      "description": "모든 정보를 확인하고 팀장 승인을 요청하세요",
+      "checklist": [
+        {
+          "id": "check-7",
+          "text": "휴가 날짜가 정확한지 확인",
+          "required": true
+        },
+        {
+          "id": "check-8",
+          "text": "업무 인수인계가 완료되었는지 확인",
+          "required": true
+        },
+        {
+          "id": "check-9",
+          "text": "팀원들에게 휴가 일정 공유 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-9",
+          "type": "textarea",
+          "label": "팀장에게 전달할 메시지 (선택)",
+          "required": false,
+          "placeholder": "특이사항이나 추가 설명이 필요한 경우 작성하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "승인 완료",
+      "description": "연차 휴가가 승인되었습니다. 좋은 휴가 보내세요!",
+      "checklist": [
+        {
+          "id": "check-10",
+          "text": "캘린더에 휴가 일정 등록",
+          "required": false
+        },
+        {
+          "id": "check-11",
+          "text": "이메일 부재중 자동 응답 설정",
+          "required": false
+        }
+      ],
+      "fields": []
+    }
+  ]
+}

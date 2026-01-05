@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업무 프로세스 실행기</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <link rel="stylesheet" href="css/tracking.css">
+</head>
+<body>
+    <!-- 사이드바 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>프로세스</h1>
+            <button id="load-process-btn" class="btn-primary">프로세스 로드</button>
+            <input type="file" id="process-file-input" accept=".json" style="display: none;">
+        </div>
+
+        <div class="process-list" id="process-list">
+            <p class="empty-message">프로세스를 로드하세요</p>
+        </div>
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <div id="welcome-screen" class="welcome">
+            <div class="welcome-content">
+                <h2>업무 프로세스 실행기</h2>
+                <p>관리자가 만든 프로세스를 로드하여 단계별로 업무를 진행하세요</p>
+                <div class="drop-zone" id="drop-zone">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <p>JSON 파일을 드래그하거나 클릭하여 업로드</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="process-screen" class="process-screen" style="display: none;">
+            <!-- 추적 정보 -->
+            <div class="tracking-info" id="tracking-info"></div>
+
+            <!-- 프로세스 헤더 -->
+            <div class="process-header" id="process-header"></div>
+
+            <!-- 진행 상태 -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+
+            <!-- 단계 콘텐츠 -->
+            <div class="step-content" id="step-content"></div>
+
+            <!-- 네비게이션 -->
+            <div class="step-navigation">
+                <button id="prev-btn" class="btn-secondary" disabled>이전</button>
+                <button id="next-btn" class="btn-primary">다음</button>
+                <button id="export-btn" class="btn-success" style="display: none;">ZIP 내보내기</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 챗봇 버튼 -->
+    <button id="chatbot-toggle" class="chatbot-toggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <!-- 챗봇 패널 -->
+    <div id="chatbot-panel" class="chatbot-panel">
+        <div class="chatbot-header">
+            <h3>AI 어시스턴트</h3>
+            <button id="chatbot-close" class="chatbot-close">×</button>
+        </div>
+        <iframe id="chatbot-iframe" src="http://localhost:3000" frameborder="0"></iframe>
+    </div>
+
+    <!-- Scripts -->
+    <script src="vendor/jszip.min.js"></script>
+    <script src="js/indexeddb.js"></script>
+    <script src="js/tracking.js"></script>
+    <script src="js/process-executor.js"></script>
+    <script src="js/file-handler.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

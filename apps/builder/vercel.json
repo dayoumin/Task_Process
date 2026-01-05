@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @task-process/builder build",
+  "outputDirectory": "dist",
+  "installCommand": "echo 'Skipping install, using buildCommand'",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

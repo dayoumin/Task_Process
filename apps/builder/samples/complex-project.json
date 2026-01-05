@@ -1,0 +1,163 @@
+{
+  "id": "PROC-20260104-0002",
+  "name": "프로젝트 착수 프로세스",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-IT",
+    "departmentName": "IT팀",
+    "processType": "PROJECT",
+    "priority": "high",
+    "assignedTo": "USER-67890",
+    "assignedToName": "김철수",
+    "dueDate": "2026-01-20T17:00:00Z",
+    "estimatedHours": 40
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "프로젝트 계획 수립",
+      "description": "프로젝트 목표와 범위를 정의하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "프로젝트 목표 설정 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "이해관계자 식별 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "프로젝트명",
+          "required": true,
+          "placeholder": "프로젝트 이름을 입력하세요"
+        },
+        {
+          "id": "field-2",
+          "type": "textarea",
+          "label": "프로젝트 목표",
+          "required": true,
+          "placeholder": "프로젝트 목표를 상세히 작성하세요"
+        },
+        {
+          "id": "field-3",
+          "type": "date",
+          "label": "시작 예정일",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "팀 구성",
+      "description": "프로젝트 팀원을 구성하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "팀장 지정 완료",
+          "required": true
+        },
+        {
+          "id": "check-4",
+          "text": "팀원 역할 배정 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-4",
+          "type": "text",
+          "label": "팀장",
+          "required": true,
+          "placeholder": "팀장 이름"
+        },
+        {
+          "id": "field-5",
+          "type": "textarea",
+          "label": "팀원 명단",
+          "required": true,
+          "placeholder": "팀원 이름과 역할을 작성하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "자원 할당",
+      "description": "프로젝트 예산과 자원을 배정하세요",
+      "checklist": [
+        {
+          "id": "check-5",
+          "text": "예산 승인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-6",
+          "type": "number",
+          "label": "예산 (만원)",
+          "required": true,
+          "placeholder": "0"
+        },
+        {
+          "id": "field-7",
+          "type": "file",
+          "label": "예산 계획서",
+          "required": false,
+          "validation": {
+            "accept": ".pdf,.xlsx",
+            "maxSize": 10485760
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "킥오프 미팅",
+      "description": "프로젝트 킥오프 미팅을 진행하세요",
+      "checklist": [
+        {
+          "id": "check-6",
+          "text": "킥오프 미팅 완료",
+          "required": true
+        },
+        {
+          "id": "check-7",
+          "text": "회의록 작성 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-8",
+          "type": "date",
+          "label": "미팅 일자",
+          "required": true
+        },
+        {
+          "id": "field-9",
+          "type": "file",
+          "label": "회의록",
+          "required": true,
+          "validation": {
+            "accept": ".pdf,.docx",
+            "maxSize": 5242880
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5",
+      "title": "완료",
+      "description": "프로젝트 착수가 완료되었습니다!",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "id": "PROC-VALIDATION-TEST",
+  "name": "Form Validation 테스트",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "TEST-ORG",
+    "departmentId": "TEST-DEPT",
+    "departmentName": "테스트팀",
+    "processType": "TEST",
+    "priority": "high",
+    "assignedTo": "TEST-USER",
+    "assignedToName": "테스터",
+    "dueDate": "2026-12-31T23:59:59Z",
+    "estimatedHours": 1
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "필수 필드 검증",
+      "description": "모든 필수 필드를 입력해야 다음 단계로 진행할 수 있습니다",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "필수 체크리스트 항목",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "선택 체크리스트 항목",
+          "required": false
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-required-text",
+          "type": "text",
+          "label": "필수 텍스트 필드",
+          "required": true,
+          "placeholder": "이 필드는 필수입니다"
+        },
+        {
+          "id": "field-required-number",
+          "type": "number",
+          "label": "필수 숫자 필드",
+          "required": true,
+          "placeholder": "숫자를 입력하세요"
+        },
+        {
+          "id": "field-required-date",
+          "type": "date",
+          "label": "필수 날짜 필드",
+          "required": true
+        },
+        {
+          "id": "field-required-textarea",
+          "type": "textarea",
+          "label": "필수 긴 텍스트 필드",
+          "required": true,
+          "placeholder": "내용을 입력하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "입력 길이 검증",
+      "description": "최소/최대 길이 제한을 확인합니다",
+      "fields": [
+        {
+          "id": "field-min-length",
+          "type": "text",
+          "label": "최소 5자 이상",
+          "required": true,
+          "placeholder": "5자 이상 입력하세요",
+          "validation": {
+            "minLength": 5
+          }
+        },
+        {
+          "id": "field-max-length",
+          "type": "text",
+          "label": "최대 10자 이하",
+          "required": true,
+          "placeholder": "10자 이하로 입력하세요",
+          "validation": {
+            "maxLength": 10
+          }
+        },
+        {
+          "id": "field-length-range",
+          "type": "textarea",
+          "label": "10자~100자 범위",
+          "required": true,
+          "placeholder": "10자 이상 100자 이하로 입력하세요",
+          "validation": {
+            "minLength": 10,
+            "maxLength": 100
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "숫자 범위 검증",
+      "description": "숫자 필드의 최소/최대 값을 확인합니다",
+      "fields": [
+        {
+          "id": "field-min-number",
+          "type": "number",
+          "label": "최소값 10",
+          "required": true,
+          "placeholder": "10 이상의 숫자",
+          "validation": {
+            "min": 10
+          }
+        },
+        {
+          "id": "field-max-number",
+          "type": "number",
+          "label": "최대값 100",
+          "required": true,
+          "placeholder": "100 이하의 숫자",
+          "validation": {
+            "max": 100
+          }
+        },
+        {
+          "id": "field-number-range",
+          "type": "number",
+          "label": "범위 1~50",
+          "required": true,
+          "placeholder": "1부터 50 사이의 숫자",
+          "validation": {
+            "min": 1,
+            "max": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "패턴 검증",
+      "description": "정규식 패턴을 사용한 입력 형식 검증",
+      "fields": [
+        {
+          "id": "field-phone",
+          "type": "text",
+          "label": "휴대폰 번호",
+          "required": true,
+          "placeholder": "010-1234-5678",
+          "validation": {
+            "pattern": "^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$",
+            "message": "올바른 휴대폰 번호 형식을 입력하세요 (예: 010-1234-5678)"
+          }
+        },
+        {
+          "id": "field-email",
+          "type": "text",
+          "label": "이메일",
+          "required": true,
+          "placeholder": "email@example.com",
+          "validation": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+            "message": "올바른 이메일 형식을 입력하세요"
+          }
+        },
+        {
+          "id": "field-postcode",
+          "type": "text",
+          "label": "우편번호",
+          "required": false,
+          "placeholder": "12345",
+          "validation": {
+            "pattern": "^[0-9]{5}$",
+            "message": "5자리 숫자로 입력하세요"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-5",
+      "title": "완료",
+      "description": "모든 검증을 통과했습니다!",
+      "checklist": [
+        {
+          "id": "check-final",
+          "text": "모든 단계를 완료했습니다",
+          "required": true
+        }
+      ]
+    }
+  ]
+}

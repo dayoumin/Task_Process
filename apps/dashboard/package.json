@@ -1,0 +1,46 @@
+{
+  "name": "@task-process/dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@task-process/shared-types": "workspace:*",
+    "@task-process/shared-ui": "workspace:*",
+    "@task-process/shared-utils": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.18",
+    "chart.js": "^4.5.1",
+    "date-fns": "^4.1.0",
+    "jszip": "^3.10.1",
+    "papaparse": "^5.5.3",
+    "react": "^19.2.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@task-process/config-eslint": "workspace:*",
+    "@task-process/config-tailwind": "workspace:*",
+    "@task-process/config-typescript": "workspace:*",
+    "@task-process/testing": "workspace:*",
+    "@types/node": "^24.10.1",
+    "@types/papaparse": "^5.5.2",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "postcss": "^8.5.6",
+    "typescript": "^5.7.2",
+    "vite": "^7.2.4",
+    "vitest": "^2.1.8",
+    "happy-dom": "^15.11.7"
+  }
+}

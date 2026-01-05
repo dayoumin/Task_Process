@@ -1,0 +1,53 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "metadata": {
+    "name": "Sample Process",
+    "description": "Test process for E2E testing",
+    "department": "QA",
+    "version": "1.0.0",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  "nodes": [
+    {
+      "id": "start-1",
+      "type": "start",
+      "data": {
+        "label": "Start",
+        "type": "start"
+      },
+      "position": { "x": 250, "y": 100 }
+    },
+    {
+      "id": "task-1",
+      "type": "task",
+      "data": {
+        "label": "Task 1",
+        "type": "task",
+        "description": "Complete this task"
+      },
+      "position": { "x": 250, "y": 250 }
+    },
+    {
+      "id": "end-1",
+      "type": "end",
+      "data": {
+        "label": "End",
+        "type": "end"
+      },
+      "position": { "x": 250, "y": 400 }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start-1",
+      "target": "task-1"
+    },
+    {
+      "id": "e2",
+      "source": "task-1",
+      "target": "end-1"
+    }
+  ]
+}

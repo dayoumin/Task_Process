@@ -1,0 +1,6 @@
+{
+  "name": "@task-process/config-typescript",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./base.json"
+}

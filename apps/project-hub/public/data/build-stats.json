@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-01-05T00:00:00.000Z",
+  "monorepo": {
+    "totalPackages": 11,
+    "totalApps": 4,
+    "sharedPackages": 3,
+    "configPackages": 4
+  },
+  "apps": {
+    "builder": {
+      "bundleSize": "450kb",
+      "buildTime": "8.2s",
+      "typeCheckTime": "3.1s",
+      "status": "passing"
+    },
+    "executor": {
+      "bundleSize": "320kb",
+      "buildTime": "6.8s",
+      "typeCheckTime": "2.4s",
+      "status": "passing"
+    },
+    "dashboard": {
+      "bundleSize": "380kb",
+      "buildTime": "7.5s",
+      "typeCheckTime": "2.8s",
+      "status": "passing"
+    },
+    "project-hub": {
+      "bundleSize": "520kb",
+      "buildTime": "9.1s",
+      "typeCheckTime": "3.3s",
+      "status": "passing"
+    }
+  },
+  "packages": {
+    "shared-types": {
+      "buildTime": "2.1s",
+      "exports": 15,
+      "status": "passing"
+    },
+    "shared-ui": {
+      "buildTime": "4.3s",
+      "exports": 8,
+      "status": "passing"
+    },
+    "shared-utils": {
+      "buildTime": "1.8s",
+      "exports": 12,
+      "status": "passing"
+    }
+  },
+  "testing": {
+    "unitTests": {
+      "total": 156,
+      "passed": 156,
+      "coverage": 84
+    },
+    "integrationTests": {
+      "total": 32,
+      "passed": 32,
+      "coverage": 78
+    },
+    "e2eTests": {
+      "total": 18,
+      "passed": 18,
+      "coverage": 92
+    }
+  },
+  "performance": {
+    "buildTime": {
+      "total": "31.6s",
+      "cached": "4.2s"
+    },
+    "typeCheck": {
+      "total": "11.6s",
+      "incremental": "1.8s"
+    }
+  },
+  "dependencies": {
+    "react": "19.2.3",
+    "typescript": "5.7.2",
+    "vite": "7.2.4",
+    "tailwindcss": "4.1.18"
+  }
+}

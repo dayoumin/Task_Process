@@ -1,0 +1,138 @@
+{
+  "id": "PROC-20260104-0002",
+  "name": "경비 지출 보고서",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-FIN",
+    "departmentName": "재무팀",
+    "processType": "EXPENSE",
+    "priority": "medium",
+    "assignedTo": "USER-67890",
+    "assignedToName": "김철수",
+    "dueDate": "2026-01-08T17:00:00Z",
+    "estimatedHours": 2
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "지출 정보 입력",
+      "description": "경비 지출 내역을 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "지출 금액 확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "지출 목적 명확히 기재 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "지출 항목",
+          "required": true,
+          "placeholder": "예: 출장비, 접대비, 사무용품 등"
+        },
+        {
+          "id": "field-2",
+          "type": "number",
+          "label": "지출 금액 (원)",
+          "required": true,
+          "placeholder": "0"
+        },
+        {
+          "id": "field-3",
+          "type": "date",
+          "label": "지출 일자",
+          "required": true
+        },
+        {
+          "id": "field-4",
+          "type": "textarea",
+          "label": "지출 목적",
+          "required": true,
+          "placeholder": "지출 사유를 상세히 기재하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "증빙 자료 제출",
+      "description": "지출 증빙 자료를 업로드하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "영수증이 선명하게 촬영되었는지 확인",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-5",
+          "type": "file",
+          "label": "영수증",
+          "required": true,
+          "validation": {
+            "accept": ".pdf,.jpg,.jpeg,.png",
+            "maxSize": 10485760
+          }
+        },
+        {
+          "id": "field-6",
+          "type": "file",
+          "label": "세금계산서 (해당 시)",
+          "required": false,
+          "validation": {
+            "accept": ".pdf,.jpg,.jpeg,.png",
+            "maxSize": 10485760
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "승인 요청",
+      "description": "최종 확인 후 승인을 요청하세요",
+      "checklist": [
+        {
+          "id": "check-4",
+          "text": "모든 정보가 정확한지 재확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-5",
+          "text": "승인권자에게 알림 발송 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-7",
+          "type": "text",
+          "label": "승인권자",
+          "required": true,
+          "placeholder": "팀장 이름"
+        },
+        {
+          "id": "field-8",
+          "type": "textarea",
+          "label": "추가 메모",
+          "required": false,
+          "placeholder": "승인권자에게 전달할 메시지"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "완료",
+      "description": "경비 지출 보고서가 제출되었습니다!",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

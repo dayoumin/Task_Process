@@ -1,0 +1,50 @@
+{
+  "id": "VECTOR-LEAVE-001",
+  "processId": "PROC-20260104-0003",
+  "processName": "휴가 신청",
+  "vectorStoreId": "vs_ghi789",
+  "createdAt": "2026-01-04T00:00:00Z",
+  "documents": [
+    {
+      "id": "doc-1",
+      "title": "연차 휴가 규정",
+      "content": "입사 1년 미만: 월 1개, 1년 이상: 연 15개, 3년마다 1개 추가 (최대 25개). 미사용 연차는 금전 보상 가능.",
+      "metadata": {
+        "type": "leave-policy",
+        "category": "hr"
+      }
+    },
+    {
+      "id": "doc-2",
+      "title": "특별 휴가 안내",
+      "content": "경조사 휴가: 본인 결혼 5일, 직계가족 사망 5일, 배우자 부모 사망 3일. 병가: 연 10일 (진단서 필요).",
+      "metadata": {
+        "type": "special-leave",
+        "category": "hr"
+      }
+    },
+    {
+      "id": "doc-3",
+      "title": "휴가 신청 절차",
+      "content": "휴가 3일 전까지 신청 (연차), 7일 전까지 신청 (3일 이상 연차). 긴급 휴가는 당일 구두 신청 후 사후 보고.",
+      "metadata": {
+        "type": "procedure",
+        "category": "hr"
+      }
+    }
+  ],
+  "faqs": [
+    {
+      "question": "반차 사용이 가능한가요?",
+      "answer": "네, 반차(0.5일) 사용이 가능합니다. 오전 반차는 13:00 출근, 오후 반차는 13:00 퇴근입니다."
+    },
+    {
+      "question": "연차 사용 기한이 있나요?",
+      "answer": "당해 연도 발생 연차는 다음 해까지 사용 가능합니다. 2년 경과 시 소멸됩니다."
+    },
+    {
+      "question": "휴가 취소는 어떻게 하나요?",
+      "answer": "승인 전이면 직접 취소 가능하고, 승인 후에는 승인권자에게 요청하세요."
+    }
+  ]
+}

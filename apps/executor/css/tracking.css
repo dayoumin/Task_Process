@@ -1,0 +1,191 @@
+.tracking-info {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tracking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.tracking-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.tracking-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
+    margin-bottom: 0.25rem;
+}
+
+.tracking-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.tracking-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.status-not-started {
+    color: var(--gray-400);
+}
+
+.status-in-progress {
+    color: var(--warning);
+}
+
+.status-completed {
+    color: var(--success);
+}
+
+.status-overdue {
+    color: var(--danger);
+}
+
+.tracking-deadline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.deadline-warning {
+    color: var(--warning);
+}
+
+.deadline-urgent {
+    color: var(--danger);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.tracking-progress-stats {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.progress-stats-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.progress-stats-label {
+    opacity: 0.9;
+}
+
+.progress-stats-value {
+    font-weight: 600;
+}
+
+.time-estimate {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.logs-section {
+    margin-top: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.logs-header h3 {
+    font-size: 1rem;
+}
+
+.logs-toggle {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--gray-300);
+    background: white;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.logs-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.log-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-left: 3px solid var(--gray-200);
+    margin-bottom: 0.5rem;
+}
+
+.log-item.log-started {
+    border-left-color: var(--primary);
+}
+
+.log-item.log-completed {
+    border-left-color: var(--success);
+}
+
+.log-item.log-error {
+    border-left-color: var(--danger);
+}
+
+.log-timestamp {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    min-width: 120px;
+}
+
+.log-content {
+    flex: 1;
+}
+
+.log-action {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.log-details {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+}
+
+.log-duration {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    margin-top: 0.25rem;
+}

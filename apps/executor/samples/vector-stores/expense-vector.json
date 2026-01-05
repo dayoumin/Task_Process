@@ -1,0 +1,50 @@
+{
+  "id": "VECTOR-EXPENSE-001",
+  "processId": "PROC-20260104-0002",
+  "processName": "경비 지출 보고서",
+  "vectorStoreId": "vs_def456",
+  "createdAt": "2026-01-04T00:00:00Z",
+  "documents": [
+    {
+      "id": "doc-1",
+      "title": "경비 처리 규정",
+      "content": "경비 지출은 사전 승인 후 처리합니다. 10만원 이상은 팀장 승인, 50만원 이상은 부서장 승인이 필요합니다.",
+      "metadata": {
+        "type": "expense-policy",
+        "category": "finance"
+      }
+    },
+    {
+      "id": "doc-2",
+      "title": "증빙 자료 제출 기준",
+      "content": "모든 경비 지출은 영수증 또는 세금계산서 제출이 필수입니다. 3만원 이상 지출은 세금계산서 발행을 원칙으로 합니다.",
+      "metadata": {
+        "type": "documentation",
+        "category": "finance"
+      }
+    },
+    {
+      "id": "doc-3",
+      "title": "정산 일정",
+      "content": "경비 정산은 매월 말일까지 제출, 익월 15일 지급됩니다. 지연 제출 시 다음 달로 이월됩니다.",
+      "metadata": {
+        "type": "schedule",
+        "category": "finance"
+      }
+    }
+  ],
+  "faqs": [
+    {
+      "question": "법인카드를 사용한 경우에도 보고서를 작성해야 하나요?",
+      "answer": "네, 법인카드 사용 내역도 경비 보고서 제출이 필요합니다."
+    },
+    {
+      "question": "영수증을 분실한 경우 어떻게 하나요?",
+      "answer": "카드 전표 또는 거래 내역서를 제출하고, 지출 증빙서를 작성하세요."
+    },
+    {
+      "question": "해외 출장 경비는 어떻게 처리하나요?",
+      "answer": "외화 영수증을 제출하고, 환율은 지출일 기준 매매기준율을 적용합니다."
+    }
+  ]
+}

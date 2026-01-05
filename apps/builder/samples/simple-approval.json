@@ -1,0 +1,53 @@
+{
+  "id": "PROC-20260104-0001",
+  "name": "간단한 승인 프로세스",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-HR",
+    "departmentName": "인사팀",
+    "processType": "APPROVAL",
+    "priority": "medium",
+    "assignedTo": "USER-12345",
+    "assignedToName": "홍길동",
+    "dueDate": "2026-01-10T17:00:00Z",
+    "estimatedHours": 2
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "신청서 작성",
+      "description": "승인 신청서를 작성하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "신청 사유 명확히 기재",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "신청 제목",
+          "required": true,
+          "placeholder": "신청 제목을 입력하세요"
+        },
+        {
+          "id": "field-2",
+          "type": "textarea",
+          "label": "신청 사유",
+          "required": true,
+          "placeholder": "신청 사유를 상세히 작성하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "완료",
+      "description": "승인 신청이 완료되었습니다!",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

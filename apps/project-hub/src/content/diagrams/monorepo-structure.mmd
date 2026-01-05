@@ -1,0 +1,66 @@
+graph TB
+    subgraph "Task Process Monorepo"
+        subgraph "Apps"
+            Builder["Builder App<br/>(Port 5174)<br/>Visual Process Editor"]
+            Executor["Executor App<br/>(Port 5175)<br/>Process Runner"]
+            Dashboard["Dashboard App<br/>(Port 5173)<br/>Analytics & Reports"]
+            Hub["Project Hub<br/>(Port 5176)<br/>Documentation"]
+        end
+
+        subgraph "Shared Packages"
+            Types["shared-types<br/>TypeScript Types<br/>Zod Schemas"]
+            UI["shared-ui<br/>React Components<br/>Design System"]
+            Utils["shared-utils<br/>Utility Functions<br/>Helpers"]
+        end
+
+        subgraph "Config Packages"
+            TSConfig["config-typescript<br/>TS Configuration"]
+            TailwindConfig["config-tailwind<br/>Tailwind Config"]
+            ESLintConfig["config-eslint<br/>ESLint Rules"]
+            Testing["testing<br/>Test Utilities"]
+        end
+
+        subgraph "Tools"
+            Turbo["Turbo<br/>Build Orchestration"]
+            PNPM["pnpm<br/>Package Manager"]
+            Vite["Vite<br/>Build Tool"]
+        end
+    end
+
+    Builder --> Types
+    Builder --> UI
+    Builder --> Utils
+    Executor --> Types
+    Executor --> UI
+    Executor --> Utils
+    Dashboard --> Types
+    Dashboard --> UI
+    Dashboard --> Utils
+    Hub --> Types
+    Hub --> UI
+    Hub --> Utils
+
+    Types --> TSConfig
+    UI --> Types
+    UI --> TailwindConfig
+    Utils --> Types
+
+    Builder --> Vite
+    Executor --> Vite
+    Dashboard --> Vite
+    Hub --> Vite
+
+    Turbo --> Builder
+    Turbo --> Executor
+    Turbo --> Dashboard
+    Turbo --> Hub
+
+    PNPM --> Turbo
+
+    style Builder fill:#60a5fa
+    style Executor fill:#34d399
+    style Dashboard fill:#f59e0b
+    style Hub fill:#a78bfa
+    style Types fill:#ec4899
+    style UI fill:#ec4899
+    style Utils fill:#ec4899

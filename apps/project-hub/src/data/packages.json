@@ -1,0 +1,144 @@
+{
+  "apps": [
+    {
+      "id": "builder",
+      "name": "@task-process/builder",
+      "displayName": "Process Builder",
+      "description": "Visual process builder with drag-and-drop interface",
+      "port": 5174,
+      "version": "0.1.0",
+      "status": "stable",
+      "technologies": ["React", "TypeScript", "React Flow", "Zustand"],
+      "features": [
+        "Visual flow editor",
+        "JSON export/import",
+        "Real-time validation",
+        "Template library"
+      ]
+    },
+    {
+      "id": "executor",
+      "name": "@task-process/executor",
+      "displayName": "Process Executor",
+      "description": "Execute processes created in the Builder app",
+      "port": 5175,
+      "version": "0.1.0",
+      "status": "stable",
+      "technologies": ["React", "TypeScript", "Zod"],
+      "features": [
+        "Step-by-step execution",
+        "Progress tracking",
+        "Data validation",
+        "ZIP export"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "name": "@task-process/dashboard",
+      "displayName": "Analytics Dashboard",
+      "description": "View analytics and statistics for executed processes",
+      "port": 5173,
+      "version": "0.1.0",
+      "status": "stable",
+      "technologies": ["React", "TypeScript", "Chart.js"],
+      "features": [
+        "Process analytics",
+        "Chart visualizations",
+        "CSV export",
+        "Historical data"
+      ]
+    },
+    {
+      "id": "project-hub",
+      "name": "@task-process/project-hub",
+      "displayName": "Project Hub",
+      "description": "Interactive documentation and learning center",
+      "port": 5176,
+      "version": "0.1.0",
+      "status": "new",
+      "technologies": ["React", "TypeScript", "React Markdown", "Mermaid"],
+      "features": [
+        "Interactive tutorials",
+        "Design system showcase",
+        "Architecture diagrams",
+        "Code examples"
+      ]
+    }
+  ],
+  "packages": [
+    {
+      "id": "shared-types",
+      "name": "@task-process/shared-types",
+      "displayName": "Shared Types",
+      "description": "Common TypeScript types and Zod schemas",
+      "version": "0.1.0",
+      "category": "shared",
+      "exports": [
+        "Process",
+        "Step",
+        "ExecutionResult",
+        "ValidationRule"
+      ]
+    },
+    {
+      "id": "shared-ui",
+      "name": "@task-process/shared-ui",
+      "displayName": "Shared UI",
+      "description": "Reusable React components and design system",
+      "version": "0.1.0",
+      "category": "shared",
+      "exports": [
+        "Button",
+        "Card",
+        "Input",
+        "ErrorBoundary"
+      ]
+    },
+    {
+      "id": "shared-utils",
+      "name": "@task-process/shared-utils",
+      "displayName": "Shared Utils",
+      "description": "Utility functions and helpers",
+      "version": "0.1.0",
+      "category": "shared",
+      "exports": [
+        "formatDate",
+        "validateEmail",
+        "generateId",
+        "debounce"
+      ]
+    },
+    {
+      "id": "config-typescript",
+      "name": "@task-process/config-typescript",
+      "displayName": "TypeScript Config",
+      "description": "Shared TypeScript configuration",
+      "version": "0.1.0",
+      "category": "config"
+    },
+    {
+      "id": "config-tailwind",
+      "name": "@task-process/config-tailwind",
+      "displayName": "Tailwind Config",
+      "description": "Shared Tailwind CSS configuration",
+      "version": "0.1.0",
+      "category": "config"
+    },
+    {
+      "id": "config-eslint",
+      "name": "@task-process/config-eslint",
+      "displayName": "ESLint Config",
+      "description": "Shared ESLint configuration",
+      "version": "0.1.0",
+      "category": "config"
+    },
+    {
+      "id": "testing",
+      "name": "@task-process/testing",
+      "displayName": "Testing Utils",
+      "description": "Shared testing utilities and fixtures",
+      "version": "0.1.0",
+      "category": "config"
+    }
+  ]
+}

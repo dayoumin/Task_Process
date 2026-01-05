@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "playwright-test": {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "run-test-mcp-server"
+      ]
+    },
+    "testsprite": {
+      "enabled": false,
+      "comment": "Enable when backend API is added",
+      "setup": "Install @testsprite/mcp-server and set API key in environment",
+      "command": "npx",
+      "args": [
+        "@testsprite/mcp-server"
+      ],
+      "env": {
+        "TESTSPRITE_API_KEY": "${TESTSPRITE_API_KEY}"
+      }
+    }
+  }
+}

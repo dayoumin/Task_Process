@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where pnpm:*)",
+      "Bash(tree:*)",
+      "Bash(test:*)",
+      "Bash(pnpm list:*)",
+      "Bash(if [ -f tests/playwright.config.ts ])",
+      "Bash(then echo \"Playwright config exists\")",
+      "Bash(else echo \"No Playwright config\")",
+      "Bash(fi:*)",
+      "Bash(find:*)",
+      "Bash(pnpm --filter @task-process/shared-types build:*)",
+      "Bash(pnpm --filter @task-process/builder type-check:*)",
+      "Bash(turbo build:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm --filter @task-process/shared-utils build:*)",
+      "Bash(pnpm --filter @task-process/shared-ui build:*)",
+      "Bash(tee:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(if [ -f packages/shared-types/src/tracking.ts ])",
+      "Bash(then head -20 packages/shared-types/src/tracking.ts)",
+      "Bash(pnpm --filter @task-process/builder exec tsc:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm --filter @task-process/builder build:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm exec vitest:*)",
+      "Bash(echo:*)"
+    ]
+  },
+  "mcpServers": {},
+  "allowedCommands": [
+    "git",
+    "npm",
+    "node",
+    "python",
+    "pip"
+  ],
+  "workingDirectory": "D:\\Projects\\Task_Process"
+}

@@ -1,0 +1,246 @@
+{
+  "id": "PROC-20260104-0001",
+  "name": "신입사원 온보딩 프로세스",
+  "version": "1.0.0",
+  "description": "신입사원의 첫 출근부터 업무 시작까지의 온보딩 절차",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-HR",
+    "departmentName": "인사팀",
+    "processType": "ONBOARDING",
+    "priority": "high",
+    "assignedTo": "USER-12345",
+    "assignedToName": "홍길동",
+    "dueDate": "2026-01-11T17:00:00Z",
+    "estimatedHours": 8
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "개인정보 및 계약서 제출",
+      "description": "입사에 필요한 개인정보와 서류를 제출하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "주민등록등본 제출 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "통장 사본 제출 완료",
+          "required": true
+        },
+        {
+          "id": "check-3",
+          "text": "근로계약서 서명 완료",
+          "required": true
+        },
+        {
+          "id": "check-4",
+          "text": "개인정보 수집 동의서 제출",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "성명",
+          "required": true,
+          "placeholder": "홍길동"
+        },
+        {
+          "id": "field-2",
+          "type": "text",
+          "label": "연락처",
+          "required": true,
+          "placeholder": "010-1234-5678"
+        },
+        {
+          "id": "field-3",
+          "type": "text",
+          "label": "이메일",
+          "required": true,
+          "placeholder": "hong@company.com"
+        },
+        {
+          "id": "field-4",
+          "type": "date",
+          "label": "입사일",
+          "required": true
+        },
+        {
+          "id": "field-5",
+          "type": "file",
+          "label": "주민등록등본 (PDF)",
+          "required": true,
+          "validation": {
+            "accept": ".pdf",
+            "maxSize": 5242880
+          }
+        },
+        {
+          "id": "field-6",
+          "type": "file",
+          "label": "통장 사본 (PDF)",
+          "required": true,
+          "validation": {
+            "accept": ".pdf",
+            "maxSize": 5242880
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "IT 장비 수령 및 계정 생성",
+      "description": "업무에 필요한 노트북, 사내 계정 등을 받으세요",
+      "checklist": [
+        {
+          "id": "check-5",
+          "text": "노트북 수령 완료",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "text": "사내 이메일 계정 생성 완료",
+          "required": true
+        },
+        {
+          "id": "check-7",
+          "text": "VPN 접속 테스트 완료",
+          "required": true
+        },
+        {
+          "id": "check-8",
+          "text": "업무 시스템 접근 권한 부여 완료",
+          "required": false
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-7",
+          "type": "text",
+          "label": "노트북 시리얼 번호",
+          "required": true,
+          "placeholder": "ABC123456"
+        },
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "사내 이메일 주소",
+          "required": true,
+          "placeholder": "hong@company.com"
+        },
+        {
+          "id": "field-9",
+          "type": "textarea",
+          "label": "수령한 장비 목록",
+          "required": true,
+          "placeholder": "노트북, 마우스, 모니터 등"
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "오리엔테이션 참석",
+      "description": "회사 소개 및 규정 교육을 받으세요",
+      "checklist": [
+        {
+          "id": "check-9",
+          "text": "회사 소개 영상 시청 완료",
+          "required": true
+        },
+        {
+          "id": "check-10",
+          "text": "취업규칙 교육 이수",
+          "required": true
+        },
+        {
+          "id": "check-11",
+          "text": "보안 교육 이수",
+          "required": true
+        },
+        {
+          "id": "check-12",
+          "text": "성희롱 예방 교육 이수",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-10",
+          "type": "date",
+          "label": "오리엔테이션 참석일",
+          "required": true
+        },
+        {
+          "id": "field-11",
+          "type": "textarea",
+          "label": "소감 및 질문사항",
+          "required": false,
+          "placeholder": "오리엔테이션 소감이나 궁금한 점을 적어주세요"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "멘토 배정 및 팀 소개",
+      "description": "팀원들과 인사하고 멘토를 배정받으세요",
+      "checklist": [
+        {
+          "id": "check-13",
+          "text": "멘토 배정 완료",
+          "required": true
+        },
+        {
+          "id": "check-14",
+          "text": "팀 전체 회의 참석 완료",
+          "required": true
+        },
+        {
+          "id": "check-15",
+          "text": "1:1 멘토링 일정 수립",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-12",
+          "type": "text",
+          "label": "멘토 이름",
+          "required": true,
+          "placeholder": "김멘토"
+        },
+        {
+          "id": "field-13",
+          "type": "text",
+          "label": "소속 팀",
+          "required": true,
+          "placeholder": "개발팀"
+        },
+        {
+          "id": "field-14",
+          "type": "date",
+          "label": "첫 1:1 멘토링 날짜",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "step-5",
+      "title": "온보딩 완료",
+      "description": "축하합니다! 온보딩이 완료되었습니다. 이제 본격적인 업무를 시작하세요!",
+      "checklist": [],
+      "fields": [
+        {
+          "id": "field-15",
+          "type": "textarea",
+          "label": "전체 온보딩 소감",
+          "required": false,
+          "placeholder": "온보딩 과정에 대한 소감을 자유롭게 작성해주세요"
+        }
+      ]
+    }
+  ]
+}

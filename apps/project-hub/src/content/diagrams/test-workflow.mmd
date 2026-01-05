@@ -1,0 +1,59 @@
+graph TB
+    Start([Developer Writes Code]) --> UnitTest{Run Unit Tests}
+
+    UnitTest -->|Pass| TypeCheck{Type Check}
+    UnitTest -->|Fail| FixUnit[Fix Unit Tests]
+    FixUnit --> UnitTest
+
+    TypeCheck -->|Pass| Lint{Lint Check}
+    TypeCheck -->|Fail| FixType[Fix Type Errors]
+    FixType --> TypeCheck
+
+    Lint -->|Pass| Build{Build All Apps}
+    Lint -->|Fail| FixLint[Fix Lint Errors]
+    FixLint --> Lint
+
+    Build -->|Pass| E2E{Run E2E Tests}
+    Build -->|Fail| FixBuild[Fix Build Errors]
+    FixBuild --> Build
+
+    E2E -->|Pass| Coverage{Check Coverage}
+    E2E -->|Fail| FixE2E[Fix E2E Tests]
+    FixE2E --> E2E
+
+    Coverage -->|>= 80%| CI[Push to CI/CD]
+    Coverage -->|< 80%| AddTests[Add More Tests]
+    AddTests --> UnitTest
+
+    CI --> GHActions{GitHub Actions}
+
+    GHActions --> ParallelTests[Run Tests in Parallel]
+    ParallelTests --> UnitTests[Unit Tests]
+    ParallelTests --> IntegrationTests[Integration Tests]
+    ParallelTests --> E2ETests[E2E Tests]
+
+    UnitTests --> Merge{All Pass?}
+    IntegrationTests --> Merge
+    E2ETests --> Merge
+
+    Merge -->|Yes| Deploy[Deploy to Production]
+    Merge -->|No| NotifyDev[Notify Developer]
+    NotifyDev --> FixUnit
+
+    Deploy --> Success([Deployment Complete])
+
+    style Start fill:#34d399
+    style Success fill:#34d399
+    style UnitTest fill:#60a5fa
+    style TypeCheck fill:#60a5fa
+    style Lint fill:#60a5fa
+    style Build fill:#60a5fa
+    style E2E fill:#60a5fa
+    style Coverage fill:#60a5fa
+    style FixUnit fill:#f59e0b
+    style FixType fill:#f59e0b
+    style FixLint fill:#f59e0b
+    style FixBuild fill:#f59e0b
+    style FixE2E fill:#f59e0b
+    style AddTests fill:#f59e0b
+    style Deploy fill:#a78bfa

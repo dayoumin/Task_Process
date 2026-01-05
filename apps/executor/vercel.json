@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd ../.. && pnpm install && pnpm --filter @task-process/executor build",
+  "outputDirectory": "dist",
+  "installCommand": "echo 'Skipping install, using buildCommand'",
+  "framework": "vite"
+}

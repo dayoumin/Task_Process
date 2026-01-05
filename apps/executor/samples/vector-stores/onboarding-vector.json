@@ -1,0 +1,50 @@
+{
+  "id": "VECTOR-ONBOARDING-001",
+  "processId": "PROC-20260104-0001",
+  "processName": "신입사원 온보딩",
+  "vectorStoreId": "vs_abc123",
+  "createdAt": "2026-01-04T00:00:00Z",
+  "documents": [
+    {
+      "id": "doc-1",
+      "title": "회사 소개 자료",
+      "content": "우리 회사는 2010년 설립되어 IT 솔루션을 제공하는 기업입니다. 주요 사업 분야는 웹 개발, 모바일 앱 개발, 클라우드 서비스입니다.",
+      "metadata": {
+        "type": "company-info",
+        "category": "onboarding"
+      }
+    },
+    {
+      "id": "doc-2",
+      "title": "복리후생 안내",
+      "content": "직원 복리후생: 4대보험, 연차 15일, 명절 상여금, 점심 식대 지원, 야근 시 석식 제공, 경조사 지원, 건강검진 등",
+      "metadata": {
+        "type": "benefits",
+        "category": "onboarding"
+      }
+    },
+    {
+      "id": "doc-3",
+      "title": "근무 규정",
+      "content": "근무 시간: 09:00 - 18:00 (점심시간 12:00-13:00), 주 5일 근무, 유연 근무제 운영, 재택 근무 가능 (주 2회)",
+      "metadata": {
+        "type": "work-rules",
+        "category": "onboarding"
+      }
+    }
+  ],
+  "faqs": [
+    {
+      "question": "첫 출근 시 준비물은 무엇인가요?",
+      "answer": "신분증, 증명사진 2장, 통장 사본, 인감도장을 준비하세요."
+    },
+    {
+      "question": "사내 복장 규정이 있나요?",
+      "answer": "업무에 적합한 복장이면 됩니다. 자유로운 복장을 권장합니다."
+    },
+    {
+      "question": "교육 일정은 어떻게 되나요?",
+      "answer": "입사 첫 주는 신입 교육 기간입니다. HR 오리엔테이션, 시스템 교육, 팀 소개 등이 진행됩니다."
+    }
+  ]
+}

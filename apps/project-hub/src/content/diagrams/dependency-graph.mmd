@@ -1,0 +1,65 @@
+graph LR
+    subgraph "Build Order: Layer 1"
+        Types[shared-types]
+        TSConfig[config-typescript]
+        TailwindConfig[config-tailwind]
+        ESLintConfig[config-eslint]
+    end
+
+    subgraph "Build Order: Layer 2"
+        UI[shared-ui]
+        Utils[shared-utils]
+        Testing[testing]
+    end
+
+    subgraph "Build Order: Layer 3"
+        Builder[builder]
+        Executor[executor]
+        Dashboard[dashboard]
+        Hub[project-hub]
+    end
+
+    Types --> UI
+    Types --> Utils
+    Types --> Testing
+    TSConfig --> Types
+    TSConfig --> UI
+    TSConfig --> Utils
+
+    UI --> Builder
+    UI --> Executor
+    UI --> Dashboard
+    UI --> Hub
+
+    Utils --> Builder
+    Utils --> Executor
+    Utils --> Dashboard
+    Utils --> Hub
+
+    Types --> Builder
+    Types --> Executor
+    Types --> Dashboard
+    Types --> Hub
+
+    TailwindConfig --> UI
+    TailwindConfig --> Builder
+    TailwindConfig --> Executor
+    TailwindConfig --> Dashboard
+    TailwindConfig --> Hub
+
+    ESLintConfig --> Builder
+    ESLintConfig --> Executor
+    ESLintConfig --> Dashboard
+    ESLintConfig --> Hub
+
+    Testing --> Builder
+    Testing --> Executor
+    Testing --> Dashboard
+
+    style Types fill:#ec4899
+    style UI fill:#ec4899
+    style Utils fill:#ec4899
+    style Builder fill:#60a5fa
+    style Executor fill:#34d399
+    style Dashboard fill:#f59e0b
+    style Hub fill:#a78bfa

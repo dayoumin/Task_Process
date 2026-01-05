@@ -1,0 +1,141 @@
+{
+  "id": "PROC-20260104-0003",
+  "name": "휴가 신청",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-HR",
+    "departmentName": "인사팀",
+    "processType": "LEAVE",
+    "priority": "low",
+    "assignedTo": "USER-11111",
+    "assignedToName": "이영희",
+    "dueDate": "2026-01-15T17:00:00Z",
+    "estimatedHours": 1
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "휴가 정보 입력",
+      "description": "휴가 기간 및 사유를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "휴가 기간 동안 업무 인수인계 계획 수립 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "date",
+          "label": "휴가 시작일",
+          "required": true
+        },
+        {
+          "id": "field-2",
+          "type": "date",
+          "label": "휴가 종료일",
+          "required": true
+        },
+        {
+          "id": "field-3",
+          "type": "text",
+          "label": "휴가 유형",
+          "required": true,
+          "placeholder": "연차, 병가, 경조사 등",
+          "validation": {
+            "minLength": 2,
+            "maxLength": 20
+          }
+        },
+        {
+          "id": "field-4",
+          "type": "textarea",
+          "label": "휴가 사유",
+          "required": true,
+          "placeholder": "휴가 사유를 간단히 기재하세요",
+          "validation": {
+            "minLength": 10,
+            "maxLength": 500
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "인수인계",
+      "description": "휴가 기간 중 업무 인수인계 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-2",
+          "text": "대리 담당자와 인수인계 내용 공유 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-5",
+          "type": "text",
+          "label": "대리 담당자",
+          "required": true,
+          "placeholder": "동료 이름",
+          "validation": {
+            "minLength": 2,
+            "maxLength": 20
+          }
+        },
+        {
+          "id": "field-6",
+          "type": "textarea",
+          "label": "인수인계 내용",
+          "required": true,
+          "placeholder": "대리 담당자에게 전달할 업무 내용",
+          "validation": {
+            "minLength": 10,
+            "maxLength": 1000
+          }
+        },
+        {
+          "id": "field-7",
+          "type": "text",
+          "label": "긴급 연락처",
+          "required": false,
+          "placeholder": "휴가 중 연락 가능한 번호 (선택)",
+          "validation": {
+            "pattern": "^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$",
+            "message": "올바른 휴대폰 번호 형식을 입력하세요 (예: 010-1234-5678)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "승인 요청",
+      "description": "상급자에게 휴가 승인을 요청하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "팀 일정과 충돌하지 않는지 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "승인권자",
+          "required": true,
+          "placeholder": "팀장 또는 부서장 이름"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "완료",
+      "description": "휴가 신청이 완료되었습니다!",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

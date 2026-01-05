@@ -1,0 +1,42 @@
+{
+  "name": "@task-process/project-hub",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Project Hub - Interactive documentation and learning center",
+  "scripts": {
+    "dev": "vite --port 5176",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@task-process/shared-types": "workspace:*",
+    "@task-process/shared-ui": "workspace:*",
+    "@task-process/shared-utils": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.18",
+    "lucide-react": "^0.562.0",
+    "mermaid": "^11.4.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-markdown": "^9.0.1",
+    "react-router-dom": "^7.1.6",
+    "remark-gfm": "^4.0.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@task-process/config-eslint": "workspace:*",
+    "@task-process/config-tailwind": "workspace:*",
+    "@task-process/config-typescript": "workspace:*",
+    "@types/node": "^24.10.4",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "postcss": "^8.5.6",
+    "typescript": "^5.7.2",
+    "vite": "^7.2.4"
+  }
+}

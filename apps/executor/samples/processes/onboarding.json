@@ -1,0 +1,150 @@
+{
+  "id": "PROC-20260104-0001",
+  "name": "신입사원 온보딩",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-HR",
+    "departmentName": "인사팀",
+    "processType": "ONBOARDING",
+    "priority": "high",
+    "assignedTo": "USER-12345",
+    "assignedToName": "홍길동",
+    "dueDate": "2026-01-11T17:00:00Z",
+    "estimatedHours": 8
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "개인정보 입력",
+      "description": "신입사원의 기본 개인 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "이름 및 연락처 확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "주소 정보 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "이름",
+          "required": true,
+          "placeholder": "홍길동"
+        },
+        {
+          "id": "field-2",
+          "type": "text",
+          "label": "이메일",
+          "required": true,
+          "placeholder": "hong@example.com"
+        },
+        {
+          "id": "field-3",
+          "type": "text",
+          "label": "전화번호",
+          "required": true,
+          "placeholder": "010-1234-5678"
+        },
+        {
+          "id": "field-4",
+          "type": "date",
+          "label": "입사일",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "서류 제출",
+      "description": "필요한 서류를 업로드하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "모든 서류가 최신 버전인지 확인",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-5",
+          "type": "file",
+          "label": "이력서",
+          "required": true,
+          "validation": {
+            "accept": ".pdf,.docx",
+            "maxSize": 10485760
+          }
+        },
+        {
+          "id": "field-6",
+          "type": "file",
+          "label": "자기소개서",
+          "required": false,
+          "validation": {
+            "accept": ".pdf,.docx",
+            "maxSize": 10485760
+          }
+        },
+        {
+          "id": "field-7",
+          "type": "file",
+          "label": "증명사진",
+          "required": true,
+          "validation": {
+            "accept": ".jpg,.jpeg,.png",
+            "maxSize": 5242880
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "계정 설정",
+      "description": "회사 시스템 계정 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-4",
+          "text": "계정 정보를 IT 팀에 전달 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "사번",
+          "required": true,
+          "placeholder": "EMP-2026-001"
+        },
+        {
+          "id": "field-9",
+          "type": "text",
+          "label": "부서",
+          "required": true,
+          "placeholder": "개발팀"
+        },
+        {
+          "id": "field-10",
+          "type": "textarea",
+          "label": "특이사항",
+          "required": false,
+          "placeholder": "추가로 전달할 사항이 있으면 입력하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "완료",
+      "description": "신입사원 온보딩이 완료되었습니다!",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

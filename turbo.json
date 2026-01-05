@@ -1,0 +1,37 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**", "package.json", "tsconfig.json", "vite.config.ts"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "outputs": []
+    },
+    "type-check": {
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["^build", "test:unit"],
+      "outputs": ["coverage/**"]
+    },
+    "test:e2e": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "inputs": ["tests/e2e/**/*.spec.ts", "tests/specs/**/*.md", "playwright.config.ts"]
+    },
+    "test:unit": {
+      "outputs": ["coverage/**"],
+      "inputs": ["**/*.test.ts", "**/*.spec.ts", "vitest.config.ts", "vitest.setup.ts"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

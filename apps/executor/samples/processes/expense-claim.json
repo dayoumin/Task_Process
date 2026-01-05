@@ -1,0 +1,204 @@
+{
+  "id": "PROC-20260104-0002",
+  "name": "경비 지출 신청 프로세스",
+  "version": "1.0.0",
+  "description": "업무 관련 경비 지출을 신청하고 승인받는 절차",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-FIN",
+    "departmentName": "재무팀",
+    "processType": "EXPENSE",
+    "priority": "medium",
+    "assignedTo": "USER-23456",
+    "assignedToName": "김영희",
+    "dueDate": "2026-01-08T17:00:00Z",
+    "estimatedHours": 2
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "경비 지출 내역 작성",
+      "description": "지출한 경비의 상세 내역을 작성하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "영수증 수령 확인",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "지출 목적이 업무 관련임을 확인",
+          "required": true
+        },
+        {
+          "id": "check-3",
+          "text": "법인카드 사용 여부 확인",
+          "required": false
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "지출 항목",
+          "required": true,
+          "placeholder": "예: 고객 미팅 식대, 교통비 등"
+        },
+        {
+          "id": "field-2",
+          "type": "date",
+          "label": "지출 날짜",
+          "required": true
+        },
+        {
+          "id": "field-3",
+          "type": "number",
+          "label": "지출 금액 (원)",
+          "required": true,
+          "placeholder": "50000"
+        },
+        {
+          "id": "field-4",
+          "type": "text",
+          "label": "지출 장소",
+          "required": true,
+          "placeholder": "식당명, 주유소명 등"
+        },
+        {
+          "id": "field-5",
+          "type": "textarea",
+          "label": "지출 사유",
+          "required": true,
+          "placeholder": "예: A고객사 계약 미팅"
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "증빙 서류 첨부",
+      "description": "영수증 및 증빙 서류를 첨부하세요",
+      "checklist": [
+        {
+          "id": "check-4",
+          "text": "영수증이 선명하게 스캔/촬영되었는지 확인",
+          "required": true
+        },
+        {
+          "id": "check-5",
+          "text": "영수증 날짜와 지출 날짜가 일치하는지 확인",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "text": "영수증 금액과 신청 금액이 일치하는지 확인",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-6",
+          "type": "file",
+          "label": "영수증 이미지/PDF",
+          "required": true,
+          "validation": {
+            "accept": ".pdf,.jpg,.jpeg,.png",
+            "maxSize": 10485760
+          }
+        },
+        {
+          "id": "field-7",
+          "type": "file",
+          "label": "추가 증빙 서류 (선택)",
+          "required": false,
+          "validation": {
+            "accept": ".pdf,.jpg,.jpeg,.png",
+            "maxSize": 10485760
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "결제 정보 입력",
+      "description": "경비를 받을 계좌 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-7",
+          "text": "계좌번호가 정확한지 확인",
+          "required": true
+        },
+        {
+          "id": "check-8",
+          "text": "예금주명이 본인 이름과 일치하는지 확인",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "은행명",
+          "required": true,
+          "placeholder": "국민은행"
+        },
+        {
+          "id": "field-9",
+          "type": "text",
+          "label": "계좌번호",
+          "required": true,
+          "placeholder": "123-456-789012"
+        },
+        {
+          "id": "field-10",
+          "type": "text",
+          "label": "예금주",
+          "required": true,
+          "placeholder": "김영희"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "최종 확인 및 제출",
+      "description": "모든 정보가 정확한지 최종 확인 후 제출하세요",
+      "checklist": [
+        {
+          "id": "check-9",
+          "text": "지출 내역이 모두 정확한지 확인",
+          "required": true
+        },
+        {
+          "id": "check-10",
+          "text": "영수증이 첨부되었는지 확인",
+          "required": true
+        },
+        {
+          "id": "check-11",
+          "text": "계좌 정보가 정확한지 확인",
+          "required": true
+        },
+        {
+          "id": "check-12",
+          "text": "팀장 승인이 필요한 경우 사전 협의 완료",
+          "required": false
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-11",
+          "type": "textarea",
+          "label": "추가 설명 (선택)",
+          "required": false,
+          "placeholder": "특이사항이나 추가 설명이 필요한 경우 작성하세요"
+        }
+      ]
+    },
+    {
+      "id": "step-5",
+      "title": "제출 완료",
+      "description": "경비 신청이 제출되었습니다. 승인 결과를 기다려주세요.",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

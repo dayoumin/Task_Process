@@ -1,0 +1,10 @@
+{
+  "name": "@task-process/config-tailwind",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./tailwind.config.js",
+  "dependencies": {
+    "tailwindcss": "^4.1.18",
+    "autoprefixer": "^10.4.23"
+  }
+}

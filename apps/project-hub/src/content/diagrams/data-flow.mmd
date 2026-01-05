@@ -1,0 +1,38 @@
+sequenceDiagram
+    participant User
+    participant Builder as Builder App
+    participant File as JSON File
+    participant Executor as Executor App
+    participant ZIP as ZIP Archive
+    participant Dashboard as Dashboard App
+
+    User->>Builder: Create Process
+    Builder->>Builder: Design Steps
+    Builder->>Builder: Configure Validation
+    Builder->>Builder: Add Dependencies
+    Builder->>File: Export JSON
+    Note over File: process-definition.json
+
+    User->>File: Upload to Executor
+    File->>Executor: Load Process
+    Executor->>Executor: Validate Schema
+    Executor->>User: Display Steps
+
+    loop For Each Step
+        User->>Executor: Provide Input
+        Executor->>Executor: Validate Input
+        Executor->>Executor: Check Dependencies
+        Executor->>User: Show Progress
+    end
+
+    Executor->>ZIP: Package Results
+    Note over ZIP: process-results.zip<br/>- data.json<br/>- metadata.json<br/>- uploads/
+
+    User->>ZIP: Download Results
+    User->>Dashboard: Upload ZIP
+    ZIP->>Dashboard: Extract Files
+    Dashboard->>Dashboard: Parse Data
+    Dashboard->>Dashboard: Calculate Statistics
+    Dashboard->>User: Display Analytics
+    Dashboard->>User: Show Charts
+    Dashboard->>User: Export CSV
