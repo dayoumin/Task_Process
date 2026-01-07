@@ -2,13 +2,13 @@ import { memo, useState, useCallback, useRef, useEffect } from 'react';
 import { Handle, Position } from 'reactflow';
 import type { NodeProps } from 'reactflow';
 import { CheckCircle, Trash2, Copy } from 'lucide-react';
-import { useProcessStore } from '../../stores/process-store';
+import { useMultiProcessStore } from '../../stores/multi-process-store';
 
 export const EndNode = memo(function EndNode({ id, data, selected }: NodeProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [label, setLabel] = useState(data.label || '완료');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { updateNodeData, removeNode, duplicateNode } = useProcessStore();
+  const { updateNodeData, removeNode, duplicateNode } = useMultiProcessStore();
 
   useEffect(() => {
     if (isEditing && inputRef.current) {

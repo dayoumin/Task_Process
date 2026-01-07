@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PlayCircle, FileText, GitBranch, CheckCircle, ChevronDown, Plus } from 'lucide-react';
-import { useProcessStore } from '../../stores/process-store';
+import { useMultiProcessStore } from '../../stores/multi-process-store';
 
 const nodeTypes = [
   {
@@ -59,7 +59,7 @@ const nodeTypes = [
 
 export function NodePalette() {
   const [isExpanded, setIsExpanded] = useState(true);
-  const addNode = useProcessStore((state) => state.addNode);
+  const addNode = useMultiProcessStore((state) => state.addNode);
 
   const handleAddNode = (type: string) => {
     // Add node at center of canvas for predictable positioning
@@ -72,32 +72,30 @@ export function NodePalette() {
 
   return (
     <div className="border-b border-gray-200">
-      <div className="px-6 py-4">
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex items-center justify-between py-1"
-        >
-          <h3 className="text-sm font-medium text-gray-700">노드 추가</h3>
-          <ChevronDown
-            size={16}
-            className={`text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-          />
-        </button>
-      </div>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+      >
+        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Add Nodes</h3>
+        <ChevronDown
+          size={14}
+          className={`text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+        />
+      </button>
 
       {isExpanded && (
         <div className="px-6 pb-6 space-y-2">
-          {nodeTypes.map(({ type, label, icon: Icon, bgColor, textColor, hoverColor, borderColor, iconBg, iconBorder, iconColor }) => (
+          {nodeTypes.map(({ type, label, icon: Icon, iconColor }) => (
             <button
               key={type}
               onClick={() => handleAddNode(type)}
-              className={`w-full ${bgColor} ${textColor} ${hoverColor} border ${borderColor} px-4 py-3 rounded-lg transition-all flex items-center gap-3 text-sm font-medium group`}
+              className="w-full h-11 px-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all flex items-center gap-3 group"
             >
-              <div className={`flex-shrink-0 w-8 h-8 ${iconBg} ${iconColor} rounded-md flex items-center justify-center border ${iconBorder}`}>
-                <Icon size={16} />
+              <div className={`flex-shrink-0 w-5 h-5 ${iconColor} flex items-center justify-center`}>
+                <Icon size={16} strokeWidth={2.5} />
               </div>
               <span className="flex-1 text-left">{label}</span>
-              <Plus size={14} className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400" />
+              <Plus size={13} className="opacity-0 group-hover:opacity-60 transition-opacity text-gray-500" />
             </button>
           ))}
         </div>

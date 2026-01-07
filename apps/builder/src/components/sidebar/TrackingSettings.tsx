@@ -1,9 +1,18 @@
-import { useProcessStore } from '../../stores/process-store';
+import { useMultiProcessStore } from '../../stores/multi-process-store';
 import { DEPARTMENT_NAMES, PROCESS_TYPES } from '@task-process/shared-types';
 import { TrackingService } from '../../services/tracking-service';
 
 export function TrackingSettings() {
-  const { tracking, updateTracking } = useProcessStore();
+  const { getActiveProcess, updateProcessTracking } = useMultiProcessStore();
+  const activeProcess = getActiveProcess();
+
+  if (!activeProcess) return null;
+
+  const tracking = activeProcess.tracking;
+
+  const updateTracking = (updates: Partial<typeof tracking>) => {
+    updateProcessTracking(activeProcess.id, updates);
+  };
 
   const handleGenerateUserId = () => {
     const userId = TrackingService.generateUserId();

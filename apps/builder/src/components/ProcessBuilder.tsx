@@ -8,7 +8,7 @@ import ReactFlow, {
   type NodeMouseHandler,
 } from 'reactflow';
 
-import { useProcessStore } from '../stores/process-store';
+import { useMultiProcessStore } from '../stores/multi-process-store';
 import { StartNode } from './nodes/StartNode';
 import { EndNode } from './nodes/EndNode';
 import { TaskNode } from './nodes/TaskNode';
@@ -16,13 +16,16 @@ import { ConditionNode } from './nodes/ConditionNode';
 
 export function ProcessBuilder() {
   const {
-    nodes,
-    edges,
+    getActiveProcess,
     onNodesChange,
     onEdgesChange,
     onConnect,
     selectNode,
-  } = useProcessStore();
+  } = useMultiProcessStore();
+
+  const activeProcess = getActiveProcess();
+  const nodes = activeProcess?.nodes || [];
+  const edges = activeProcess?.edges || [];
 
   const nodeTypes = useMemo(
     () => ({

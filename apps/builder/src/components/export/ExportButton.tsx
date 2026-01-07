@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { Download } from 'lucide-react';
-import { useProcessStore } from '../../stores/process-store';
+import { useMultiProcessStore } from '../../stores/multi-process-store';
 import { ExportService } from '../../services/export-service';
 import { TrackingService } from '../../services/tracking-service';
 
 export function ExportButton() {
-  const { nodes, edges, processName, processId, tracking } = useProcessStore();
+  const { getActiveProcess } = useMultiProcessStore();
   const [showError, setShowError] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const activeProcess = getActiveProcess();
 
   useEffect(() => {
     if (!showError) return;
@@ -58,6 +60,14 @@ export function ExportButton() {
   }, [showError]);
 
   const handleExport = () => {
+    if (!activeProcess) {
+      setErrors(['활성화된 프로세스가 없습니다.']);
+      setShowError(true);
+      return;
+    }
+
+    const { nodes, edges, name, processId, tracking } = activeProcess;
+
     // Validate process
     const validation = ExportService.validateProcess(nodes, edges);
     if (!validation.valid) {
@@ -76,8 +86,8 @@ export function ExportButton() {
 
     // Generate and download JSON
     try {
-      const data = ExportService.generateJSON(nodes, edges, processName, tracking, processId);
-      const filename = `${processName.replace(/\s+/g, '-')}.json`;
+      const data = ExportService.generateJSON(nodes, edges, name, tracking, processId);
+      const filename = `${name.replace(/\s+/g, '-')}.json`;
       ExportService.downloadFile(data, filename);
 
       setShowError(false);
@@ -95,11 +105,12 @@ export function ExportButton() {
       <button
         ref={buttonRef}
         onClick={handleExport}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+        disabled={!activeProcess}
+        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="프로세스 JSON 파일로 내보내기"
       >
         <Download size={16} />
-        내보내기
+        Export
       </button>
 
       {showError && (

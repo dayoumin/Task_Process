@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-import { useProcessStore } from '../../stores/process-store';
+import { useMultiProcessStore } from '../../stores/multi-process-store';
 import { DEPARTMENT_NAMES, PROCESS_TYPES } from '@task-process/shared-types';
 import { TrackingService } from '../../services/tracking-service';
 
@@ -10,9 +10,28 @@ interface SettingsModalProps {
 }
 
 export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
-  const { tracking, updateTracking } = useProcessStore();
+  const { getActiveProcess, updateProcessTracking } = useMultiProcessStore();
   const modalRef = useRef<HTMLDivElement>(null);
   const firstInputRef = useRef<HTMLSelectElement>(null);
+
+  const activeProcess = getActiveProcess();
+  const tracking = activeProcess?.tracking || {
+    organizationId: '',
+    departmentId: 'DEPT-IT',
+    departmentName: 'IT팀',
+    processType: 'GENERAL',
+    priority: 'medium' as const,
+    assignedTo: '',
+    assignedToName: '',
+    dueDate: '',
+    estimatedHours: 1,
+  };
+
+  const updateTracking = (updates: Partial<typeof tracking>) => {
+    if (activeProcess) {
+      updateProcessTracking(activeProcess.id, updates);
+    }
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -53,7 +72,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !activeProcess) return null;
 
   const handleGenerateUserId = () => {
     const userId = TrackingService.generateUserId();
@@ -140,38 +159,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               </select>
             </div>
 
-            {/* Priority */}
-            <div>
-              <fieldset>
-                <legend className="block text-sm font-medium text-gray-700 mb-2">우선순위</legend>
-                <div className="grid grid-cols-3 gap-2">
-                  {['low', 'medium', 'high'].map((priority) => (
-                    <button
-                      key={priority}
-                      type="button"
-                      onClick={() => updateTracking({ priority: priority as 'low' | 'medium' | 'high' })}
-                      aria-pressed={tracking.priority === priority}
-                      className={`px-3 py-2 rounded-md text-sm font-medium transition-all border ${
-                        tracking.priority === priority
-                          ? priority === 'high'
-                            ? 'bg-red-50 text-red-700 border-red-200'
-                            : priority === 'medium'
-                            ? 'bg-amber-50 text-amber-700 border-amber-200'
-                            : 'bg-green-50 text-green-700 border-green-200'
-                          : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-                      }`}
-                    >
-                      {priority === 'high' ? '높음' : priority === 'medium' ? '보통' : '낮음'}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
-
-            {/* Assigned User */}
+            {/* Assigned User ID */}
             <div>
               <label htmlFor="assigned-user-id" className="block text-sm font-medium text-gray-700 mb-2">
-                담당자 ID
+                업무 생성자 ID
               </label>
               <div className="flex gap-2">
                 <input
@@ -195,7 +186,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             {/* Assigned User Name */}
             <div>
               <label htmlFor="assigned-user-name" className="block text-sm font-medium text-gray-700 mb-2">
-                담당자 이름
+                업무 생성자 이름
               </label>
               <input
                 id="assigned-user-name"
@@ -204,47 +195,6 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 onChange={(e) => updateTracking({ assignedToName: e.target.value })}
                 className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 placeholder="홍길동"
-              />
-            </div>
-
-            {/* Due Date */}
-            <div>
-              <label htmlFor="due-date" className="block text-sm font-medium text-gray-700 mb-2">
-                마감일
-              </label>
-              <input
-                id="due-date"
-                type="datetime-local"
-                value={tracking.dueDate ? tracking.dueDate.slice(0, 16) : ''}
-                onChange={(e) => updateTracking({ dueDate: e.target.value ? `${e.target.value}:00Z` : '' })}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
-              />
-            </div>
-
-            {/* Estimated Hours */}
-            <div>
-              <label htmlFor="estimated-hours" className="block text-sm font-medium text-gray-700 mb-2">
-                예상 소요 시간 (시간)
-              </label>
-              <input
-                id="estimated-hours"
-                type="number"
-                min="0.5"
-                step="0.5"
-                value={tracking.estimatedHours}
-                onChange={(e) => {
-                  const value = parseFloat(e.target.value);
-                  if (value >= 0.5) {
-                    updateTracking({ estimatedHours: value });
-                  }
-                }}
-                onBlur={(e) => {
-                  const value = parseFloat(e.target.value);
-                  if (value < 0.5 || isNaN(value)) {
-                    updateTracking({ estimatedHours: 1 });
-                  }
-                }}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
               />
             </div>
             </div>
