@@ -1,0 +1,161 @@
+{
+  "id": "PROC-20260107-0002",
+  "name": "구매 요청",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-OPS",
+    "departmentName": "운영팀",
+    "processType": "PURCHASE_REQUEST",
+    "priority": "medium",
+    "assignedTo": "USER-20002",
+    "assignedToName": "박운영",
+    "dueDate": "2026-01-20T17:00:00Z",
+    "estimatedHours": 1
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "구매 품목 정보",
+      "description": "구매가 필요한 품목의 상세 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "구매 필요성 검토 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "예산 확보 여부 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "품목명",
+          "required": true,
+          "placeholder": "예: 노트북 컴퓨터"
+        },
+        {
+          "id": "field-2",
+          "type": "text",
+          "label": "품목 사양",
+          "required": true,
+          "placeholder": "예: Apple MacBook Pro 14인치, M3 Pro, 18GB RAM"
+        },
+        {
+          "id": "field-3",
+          "type": "number",
+          "label": "수량",
+          "required": true,
+          "placeholder": "1",
+          "validation": {
+            "min": 1,
+            "max": 1000
+          }
+        },
+        {
+          "id": "field-4",
+          "type": "number",
+          "label": "단가 (원)",
+          "required": true,
+          "placeholder": "0"
+        },
+        {
+          "id": "field-5",
+          "type": "textarea",
+          "label": "구매 사유",
+          "required": true,
+          "placeholder": "구매가 필요한 이유를 구체적으로 기재하세요",
+          "validation": {
+            "minLength": 20,
+            "maxLength": 500
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "공급업체 정보",
+      "description": "선정된 공급업체 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "3사 이상 견적 비교 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-6",
+          "type": "text",
+          "label": "공급업체명",
+          "required": true,
+          "placeholder": "선정된 공급업체"
+        },
+        {
+          "id": "field-7",
+          "type": "text",
+          "label": "담당자 이름",
+          "required": true
+        },
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "담당자 연락처",
+          "required": true,
+          "placeholder": "010-1234-5678"
+        },
+        {
+          "id": "field-9",
+          "type": "file",
+          "label": "견적서",
+          "required": true
+        },
+        {
+          "id": "field-10",
+          "type": "date",
+          "label": "납품 희망일",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "승인",
+      "description": "구매 승인을 요청하세요",
+      "checklist": [
+        {
+          "id": "check-4",
+          "text": "구매 규정 준수 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-11",
+          "type": "text",
+          "label": "승인권자",
+          "required": true,
+          "placeholder": "부서장 또는 결재권자 이름"
+        },
+        {
+          "id": "field-12",
+          "type": "textarea",
+          "label": "특이사항",
+          "required": false,
+          "placeholder": "추가로 전달할 사항이 있으면 기재"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "완료",
+      "description": "구매 요청이 완료되었습니다",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

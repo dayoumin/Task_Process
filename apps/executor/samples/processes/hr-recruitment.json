@@ -1,0 +1,268 @@
+{
+  "id": "PROC-20260107-0003",
+  "name": "인사 채용 프로세스",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-HR",
+    "departmentName": "인사팀",
+    "processType": "HR_RECRUITMENT",
+    "priority": "high",
+    "assignedTo": "USER-30003",
+    "assignedToName": "최인사",
+    "dueDate": "2026-02-28T17:00:00Z",
+    "estimatedHours": 3
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "채용 포지션 정의",
+      "description": "채용하려는 포지션의 상세 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "채용 필요성 및 인력 계획 검토 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "부서장 승인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "채용 포지션",
+          "required": true,
+          "placeholder": "예: 백엔드 개발자"
+        },
+        {
+          "id": "field-2",
+          "type": "text",
+          "label": "채용 부서",
+          "required": true,
+          "placeholder": "예: IT개발팀"
+        },
+        {
+          "id": "field-3",
+          "type": "text",
+          "label": "채용 인원",
+          "required": true,
+          "placeholder": "1명"
+        },
+        {
+          "id": "field-4",
+          "type": "text",
+          "label": "경력 요건",
+          "required": true,
+          "placeholder": "예: 경력 3년 이상"
+        },
+        {
+          "id": "field-5",
+          "type": "textarea",
+          "label": "주요 업무",
+          "required": true,
+          "placeholder": "채용될 인원의 주요 업무 내용",
+          "validation": {
+            "minLength": 50,
+            "maxLength": 1000
+          }
+        },
+        {
+          "id": "field-6",
+          "type": "textarea",
+          "label": "필수 자격 요건",
+          "required": true,
+          "placeholder": "학력, 경력, 기술 스택 등",
+          "validation": {
+            "minLength": 30,
+            "maxLength": 500
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "채용 공고 작성",
+      "description": "채용 공고문을 작성하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "회사 소개 및 비전 포함 확인",
+          "required": true
+        },
+        {
+          "id": "check-4",
+          "text": "복리후생 정보 포함 확인",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-7",
+          "type": "textarea",
+          "label": "채용 공고 제목",
+          "required": true,
+          "placeholder": "매력적인 공고 제목을 작성하세요"
+        },
+        {
+          "id": "field-8",
+          "type": "textarea",
+          "label": "채용 공고 본문",
+          "required": true,
+          "placeholder": "상세한 채용 공고 내용",
+          "validation": {
+            "minLength": 100,
+            "maxLength": 2000
+          }
+        },
+        {
+          "id": "field-9",
+          "type": "text",
+          "label": "근무 지역",
+          "required": true,
+          "placeholder": "예: 서울시 강남구"
+        },
+        {
+          "id": "field-10",
+          "type": "text",
+          "label": "급여 수준",
+          "required": true,
+          "placeholder": "예: 연봉 5,000만원 ~ 7,000만원"
+        },
+        {
+          "id": "field-11",
+          "type": "date",
+          "label": "채용 마감일",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "서류 심사",
+      "description": "지원자 서류를 검토하고 평가하세요",
+      "checklist": [
+        {
+          "id": "check-5",
+          "text": "최소 자격 요건 충족 여부 확인",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "text": "서류 평가 기준표 작성 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-12",
+          "type": "number",
+          "label": "지원자 수",
+          "required": true,
+          "placeholder": "0"
+        },
+        {
+          "id": "field-13",
+          "type": "number",
+          "label": "서류 합격자 수",
+          "required": true,
+          "placeholder": "0"
+        },
+        {
+          "id": "field-14",
+          "type": "textarea",
+          "label": "서류 심사 결과 요약",
+          "required": true,
+          "placeholder": "서류 심사 결과 및 특이사항"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "면접 진행",
+      "description": "면접 일정을 잡고 면접을 진행하세요",
+      "checklist": [
+        {
+          "id": "check-7",
+          "text": "면접관 일정 조율 완료",
+          "required": true
+        },
+        {
+          "id": "check-8",
+          "text": "면접 평가표 준비 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-15",
+          "type": "date",
+          "label": "1차 면접 일자",
+          "required": true
+        },
+        {
+          "id": "field-16",
+          "type": "text",
+          "label": "1차 면접관",
+          "required": true,
+          "placeholder": "면접관 명단"
+        },
+        {
+          "id": "field-17",
+          "type": "textarea",
+          "label": "면접 결과",
+          "required": true,
+          "placeholder": "면접 평가 결과 및 의견"
+        }
+      ]
+    },
+    {
+      "id": "step-5",
+      "title": "최종 합격자 결정",
+      "description": "최종 합격자를 선정하고 처우를 협의하세요",
+      "checklist": [
+        {
+          "id": "check-9",
+          "text": "처우 협의 완료",
+          "required": true
+        },
+        {
+          "id": "check-10",
+          "text": "입사 일정 확정",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-18",
+          "type": "text",
+          "label": "최종 합격자 이름",
+          "required": true
+        },
+        {
+          "id": "field-19",
+          "type": "date",
+          "label": "입사 예정일",
+          "required": true
+        },
+        {
+          "id": "field-20",
+          "type": "text",
+          "label": "최종 연봉",
+          "required": true,
+          "placeholder": "예: 6,000만원"
+        }
+      ]
+    },
+    {
+      "id": "step-6",
+      "title": "완료",
+      "description": "채용 프로세스가 완료되었습니다",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

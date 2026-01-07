@@ -1,10 +1,10 @@
-# Real Examples
+# 실제 예제 (Real Examples)
 
-Explore real-world code examples from the Task Process system.
+Task Process 시스템의 실제 코드 예제를 살펴봅니다.
 
-## Process Builder Component
+## 프로세스 빌더 컴포넌트
 
-### Store with Zustand
+### Zustand를 사용한 Store
 
 ```typescript
 // apps/builder/src/store/processStore.ts
@@ -16,7 +16,7 @@ interface ProcessState {
   steps: Step[];
   isDirty: boolean;
 
-  // Actions
+  // 액션
   setProcess: (process: Process) => void;
   addStep: (step: Step) => void;
   updateStep: (id: string, updates: Partial<Step>) => void;
@@ -71,7 +71,7 @@ export const useProcessStore = create<ProcessState>((set, get) => ({
       updatedAt: new Date(),
     };
 
-    // Save to backend
+    // 백엔드에 저장
     await fetch(`/api/processes/${updated.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -83,7 +83,7 @@ export const useProcessStore = create<ProcessState>((set, get) => ({
 }));
 ```
 
-### Visual Flow Editor
+### 비주얼 플로우 에디터
 
 ```typescript
 // apps/builder/src/components/FlowEditor.tsx
@@ -120,7 +120,7 @@ export function FlowEditor() {
 
   const onNodeClick = useCallback(
     (_event: React.MouseEvent, node: any) => {
-      // Open edit dialog
+      // 수정 다이얼로그 열기
       console.log('Edit step:', node.data.step);
     },
     []
@@ -145,9 +145,9 @@ export function FlowEditor() {
 }
 ```
 
-## Process Executor
+## 프로세스 실행기
 
-### Step Execution Engine
+### 스텝 실행 엔진
 
 ```typescript
 // apps/executor/src/engine/executor.ts
@@ -185,7 +185,7 @@ export class ProcessExecutor {
   }
 
   private async executeStep(step: Step): Promise<StepResult> {
-    // Check dependencies
+    // 의존성 확인
     if (step.dependencies) {
       const dependenciesMet = this.checkDependencies(
         step.dependencies
@@ -197,10 +197,10 @@ export class ProcessExecutor {
       }
     }
 
-    // Get user input based on step type
+    // 스텝 타입에 따라 사용자 입력 받기
     const value = await this.getUserInput(step);
 
-    // Validate input
+    // 입력 검증
     const valid = this.validateInput(step, value);
 
     return {
@@ -220,7 +220,7 @@ export class ProcessExecutor {
   }
 
   private async getUserInput(step: Step): Promise<unknown> {
-    // Implementation depends on step type
+    // 스텝 타입에 따라 구현이 달라짐
     switch (step.type) {
       case 'input':
         return this.getTextInput(step);
@@ -278,7 +278,7 @@ export class ProcessExecutor {
 }
 ```
 
-### React Hook for Execution
+### 실행을 위한 React Hook
 
 ```typescript
 // apps/executor/src/hooks/useProcessExecution.ts
@@ -322,7 +322,7 @@ export function useProcessExecution(process: Process | null) {
   };
 }
 
-// Usage in component
+// 컴포넌트에서 사용
 function ExecutorPage() {
   const { result, isExecuting, error, execute } =
     useProcessExecution(currentProcess);
@@ -347,9 +347,9 @@ function ExecutorPage() {
 }
 ```
 
-## Dashboard Analytics
+## 대시보드 분석
 
-### Statistics Calculator
+### 통계 계산기
 
 ```typescript
 // apps/dashboard/src/services/statistics.ts
@@ -418,7 +418,7 @@ export function calculateStatistics(
 }
 ```
 
-### Chart Component
+### 차트 컴포넌트
 
 ```typescript
 // apps/dashboard/src/components/ExecutionChart.tsx
@@ -499,9 +499,9 @@ export function ExecutionChart({ statistics }: ExecutionChartProps) {
 }
 ```
 
-## Shared Components
+## 공유 컴포넌트
 
-### Button Component
+### Button 컴포넌트
 
 ```typescript
 // packages/shared-ui/src/Button.tsx
@@ -550,7 +550,7 @@ export function Button({
 }
 ```
 
-### Form Validation Hook
+### 폼 검증 Hook
 
 ```typescript
 // packages/shared-utils/src/useFormValidation.ts
@@ -601,7 +601,7 @@ export function useFormValidation<T extends ZodSchema>(schema: T) {
   };
 }
 
-// Usage
+// 사용법
 const processSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   description: z.string().optional(),
@@ -617,7 +617,7 @@ function ProcessForm() {
 
     const result = validate(data);
     if (result.success) {
-      // Submit form
+      // 폼 제출
       console.log('Valid data:', result.data);
     }
   };
@@ -633,7 +633,7 @@ function ProcessForm() {
 }
 ```
 
-## Error Handling
+## 에러 처리
 
 ### Error Boundary
 
@@ -684,4 +684,4 @@ export class ErrorBoundary extends Component<Props, State> {
 
 ---
 
-Continue to the final section to learn best practices and coding guidelines.
+마지막 섹션에서 모범 사례와 코딩 가이드라인을 알아봅니다.

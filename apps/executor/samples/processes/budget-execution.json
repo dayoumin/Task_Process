@@ -1,0 +1,172 @@
+{
+  "id": "PROC-20260107-0001",
+  "name": "예산 집행",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-FIN",
+    "departmentName": "재무팀",
+    "processType": "BUDGET_EXECUTION",
+    "priority": "high",
+    "assignedTo": "USER-10001",
+    "assignedToName": "김재무",
+    "dueDate": "2026-01-31T17:00:00Z",
+    "estimatedHours": 2
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "예산 집행 요청",
+      "description": "집행하려는 예산의 상세 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "사전 승인된 예산인지 확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-2",
+          "text": "예산 집행 가능 잔액 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "예산 항목 코드",
+          "required": true,
+          "placeholder": "예: BDG-2026-001",
+          "validation": {
+            "pattern": "^BDG-[0-9]{4}-[0-9]{3}$",
+            "message": "올바른 예산 코드 형식을 입력하세요 (예: BDG-2026-001)"
+          }
+        },
+        {
+          "id": "field-2",
+          "type": "text",
+          "label": "예산 항목명",
+          "required": true,
+          "placeholder": "예: 사무용품 구매"
+        },
+        {
+          "id": "field-3",
+          "type": "number",
+          "label": "집행 금액 (원)",
+          "required": true,
+          "placeholder": "0",
+          "validation": {
+            "min": 1,
+            "max": 100000000
+          }
+        },
+        {
+          "id": "field-4",
+          "type": "date",
+          "label": "집행 예정일",
+          "required": true
+        },
+        {
+          "id": "field-5",
+          "type": "textarea",
+          "label": "집행 목적",
+          "required": true,
+          "placeholder": "예산 집행의 구체적인 목적을 기재하세요",
+          "validation": {
+            "minLength": 20,
+            "maxLength": 500
+          }
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "증빙 서류 첨부",
+      "description": "예산 집행에 필요한 증빙 서류를 첨부하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "견적서 또는 계약서 확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-4",
+          "text": "거래처 정보 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-6",
+          "type": "file",
+          "label": "견적서/계약서",
+          "required": true
+        },
+        {
+          "id": "field-7",
+          "type": "text",
+          "label": "거래처명",
+          "required": true,
+          "placeholder": "공급업체 또는 거래처 이름"
+        },
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "거래처 사업자번호",
+          "required": true,
+          "placeholder": "123-45-67890",
+          "validation": {
+            "pattern": "^[0-9]{3}-[0-9]{2}-[0-9]{5}$",
+            "message": "올바른 사업자번호 형식을 입력하세요 (예: 123-45-67890)"
+          }
+        },
+        {
+          "id": "field-9",
+          "type": "file",
+          "label": "기타 증빙 서류",
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "승인 및 검토",
+      "description": "재무팀 검토 및 승인 절차",
+      "checklist": [
+        {
+          "id": "check-5",
+          "text": "예산 집행 규정 준수 확인 완료",
+          "required": true
+        },
+        {
+          "id": "check-6",
+          "text": "회계 처리 기준 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-10",
+          "type": "text",
+          "label": "재무 담당자",
+          "required": true,
+          "placeholder": "검토 담당자 이름"
+        },
+        {
+          "id": "field-11",
+          "type": "textarea",
+          "label": "검토 의견",
+          "required": false,
+          "placeholder": "특이사항이 있는 경우 기재"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "완료",
+      "description": "예산 집행이 승인되었습니다",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

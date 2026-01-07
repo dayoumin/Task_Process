@@ -88,16 +88,16 @@ start.bat
 
 **Admin Builder** (프로세스 생성):
 ```bash
-cd admin-builder
-npm install
-npm run dev
+cd apps/builder
+pnpm install
+pnpm dev
 ```
 
 **Admin Dashboard** (분석):
 ```bash
-cd admin-dashboard
-npm install
-npm run dev
+cd apps/dashboard
+pnpm install
+pnpm dev
 ```
 
 ### 3️⃣ 남은 작업 (선택)
@@ -204,7 +204,7 @@ find . -name "*.md" | wc -l
 - [x] 문서 생성 완료 (START_HERE.md, CLAUDE.md, SETUP_COMPLETE.md)
 - [x] 스킬 복사 완료 (business-process-orchestrator)
 - [ ] 각 컴포넌트 실행 테스트 (사용자가 직접)
-- [ ] npm install 완료 (사용자가 직접)
+- [ ] pnpm install 완료 (사용자가 직접)
 - [ ] Admin Dashboard 2개 수정 (선택)
 
 ---

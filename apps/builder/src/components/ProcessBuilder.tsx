@@ -7,7 +7,6 @@ import ReactFlow, {
   Panel,
   type NodeMouseHandler,
 } from 'reactflow';
-import 'reactflow/dist/style.css';
 
 import { useProcessStore } from '../stores/process-store';
 import { StartNode } from './nodes/StartNode';
@@ -59,6 +58,7 @@ export function ProcessBuilder() {
         nodeTypes={nodeTypes}
         fitView
         attributionPosition="bottom-left"
+        deleteKeyCode="Delete"
       >
         <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
         <Controls />

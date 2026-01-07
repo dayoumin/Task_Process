@@ -143,12 +143,12 @@ CSS: ~800 라인
    python -m http.server 8000
 
    # Admin Builder
-   cd admin-builder
-   npm install && npm run dev
+   cd apps/builder
+   pnpm install && pnpm dev
 
    # Admin Dashboard
-   cd admin-dashboard
-   npm install && npm run dev
+   cd apps/dashboard
+   pnpm install && pnpm dev
    ```
 
 ### 선택적 작업

@@ -1,16 +1,16 @@
-# Type System
+# 타입 시스템 (Type System)
 
-Explore the comprehensive type system used throughout the Task Process monorepo.
+Task Process 모노레포 전체에서 사용되는 포괄적인 타입 시스템을 살펴봅니다.
 
-## Overview
+## 개요
 
-The Task Process system uses **TypeScript strict mode** with **Zod** for runtime validation, providing both compile-time and runtime type safety.
+Task Process 시스템은 **TypeScript strict mode**와 **Zod**를 함께 사용하여 컴파일 타임과 런타임 모두에서 타입 안전성을 제공합니다.
 
-## Core Types
+## 핵심 타입 (Core Types)
 
-### Process Types
+### 프로세스 타입 (Process Types)
 
-The central data structure for business processes:
+업무 프로세스를 위한 중심 데이터 구조:
 
 ```typescript
 // packages/shared-types/src/process.ts
@@ -41,9 +41,9 @@ export type StepType =
   | 'info';
 ```
 
-### Execution Types
+### 실행 타입 (Execution Types)
 
-Types for process execution and tracking:
+프로세스 실행 및 추적을 위한 타입:
 
 ```typescript
 // packages/shared-types/src/execution.ts
@@ -69,11 +69,11 @@ export interface StepResult {
 }
 ```
 
-## Zod Schemas
+## Zod 스키마
 
-Zod provides runtime validation for all data structures.
+Zod는 모든 데이터 구조에 대한 런타임 검증을 제공합니다.
 
-### Process Schema
+### 프로세스 스키마
 
 ```typescript
 import { z } from 'zod';
@@ -97,23 +97,23 @@ export const ProcessSchema = z.object({
   updatedAt: z.date(),
 });
 
-// Infer TypeScript type from Zod schema
+// Zod 스키마에서 TypeScript 타입 추론
 export type Process = z.infer<typeof ProcessSchema>;
 ```
 
-### Validation
+### 검증 (Validation)
 
-Use Zod schemas to validate data:
+Zod 스키마를 사용하여 데이터 검증:
 
 ```typescript
 import { ProcessSchema } from '@task-process/shared-types';
 
 function loadProcess(data: unknown): Process {
-  // Throws if validation fails
+  // 검증 실패 시 예외 발생
   return ProcessSchema.parse(data);
 }
 
-// Safe parsing (doesn't throw)
+// 안전한 파싱 (예외를 발생시키지 않음)
 const result = ProcessSchema.safeParse(data);
 if (result.success) {
   const process = result.data;
@@ -122,9 +122,9 @@ if (result.success) {
 }
 ```
 
-## Type Guards
+## 타입 가드 (Type Guards)
 
-Type guards help narrow types at runtime:
+타입 가드는 런타임에 타입을 좁히는 데 도움을 줍니다:
 
 ```typescript
 // packages/shared-types/src/guards.ts
@@ -139,59 +139,59 @@ export function isExecutionResult(
 }
 ```
 
-Usage:
+사용 방법:
 
 ```typescript
 function handleData(data: unknown) {
   if (isProcess(data)) {
-    // TypeScript knows data is Process here
+    // TypeScript는 여기서 data가 Process 타입임을 알고 있음
     console.log(data.name);
   }
 }
 ```
 
-## Utility Types
+## 유틸리티 타입 (Utility Types)
 
-### Partial Updates
+### 부분 업데이트 (Partial Updates)
 
 ```typescript
 export type ProcessUpdate = Partial<
   Omit<Process, 'id' | 'createdAt'>
 >;
 
-// Usage
+// 사용법
 const update: ProcessUpdate = {
   name: 'New Name',
-  // Other fields optional
+  // 다른 필드는 선택 사항
 };
 ```
 
-### Pick and Omit
+### Pick과 Omit
 
 ```typescript
-// Only the fields needed for display
+// 표시에 필요한 필드만
 export type ProcessSummary = Pick<
   Process,
   'id' | 'name' | 'version'
 >;
 
-// Exclude sensitive fields
+// 민감한 필드 제외
 export type PublicProcess = Omit<
   Process,
   'internalNotes'
 >;
 ```
 
-## Generic Types
+## 제네릭 타입 (Generic Types)
 
-### Result Type
+### Result 타입
 
 ```typescript
 export type Result<T, E = Error> =
   | { success: true; data: T }
   | { success: false; error: E };
 
-// Usage
+// 사용법
 function parseJSON(json: string): Result<unknown> {
   try {
     return { success: true, data: JSON.parse(json) };
@@ -201,7 +201,7 @@ function parseJSON(json: string): Result<unknown> {
 }
 ```
 
-### Async Result
+### 비동기 Result
 
 ```typescript
 export type AsyncResult<T, E = Error> = Promise<Result<T, E>>;
@@ -220,9 +220,9 @@ async function loadProcess(
 }
 ```
 
-## Type-Safe Event Handlers
+## 타입 안전 이벤트 핸들러
 
-### Event Types
+### 이벤트 타입
 
 ```typescript
 export interface ProcessEvents {
@@ -237,7 +237,7 @@ export type EventHandler<K extends keyof ProcessEvents> = (
 ) => void;
 ```
 
-### Event Emitter
+### 이벤트 에미터
 
 ```typescript
 class TypedEventEmitter {
@@ -262,9 +262,9 @@ class TypedEventEmitter {
 }
 ```
 
-## React Component Types
+## React 컴포넌트 타입
 
-### Props with Children
+### Children이 있는 Props
 
 ```typescript
 import type { ReactNode } from 'react';
@@ -285,7 +285,7 @@ export function Card({ title, children, className }: CardProps) {
 }
 ```
 
-### Generic Components
+### 제네릭 컴포넌트
 
 ```typescript
 interface ListProps<T> {
@@ -310,7 +310,7 @@ export function List<T>({
   );
 }
 
-// Usage
+// 사용법
 <List
   items={processes}
   renderItem={(p) => <div>{p.name}</div>}
@@ -318,82 +318,82 @@ export function List<T>({
 />
 ```
 
-## Best Practices
+## 모범 사례 (Best Practices)
 
-### 1. Use `type` for Type Aliases
+### 1. 타입 별칭에는 `type` 사용
 
 ```typescript
-// ✅ Good
+// ✅ 좋음
 export type Status = 'active' | 'inactive';
 
-// ❌ Avoid
+// ❌ 피하기
 export interface Status {
   value: 'active' | 'inactive';
 }
 ```
 
-### 2. Use `interface` for Object Shapes
+### 2. 객체 형태에는 `interface` 사용
 
 ```typescript
-// ✅ Good
+// ✅ 좋음
 export interface User {
   id: string;
   name: string;
 }
 
-// ❌ Avoid
+// ❌ 피하기
 export type User = {
   id: string;
   name: string;
 };
 ```
 
-### 3. Use `import type` for Type-Only Imports
+### 3. 타입 전용 import에는 `import type` 사용
 
 ```typescript
-// ✅ Good
+// ✅ 좋음
 import type { Process } from '@task-process/shared-types';
 
-// ❌ Avoid (when only using type)
+// ❌ 피하기 (타입만 사용하는 경우)
 import { Process } from '@task-process/shared-types';
 ```
 
-### 4. Validate External Data
+### 4. 외부 데이터 검증
 
-Always validate data from external sources:
+외부 소스의 데이터는 항상 검증하세요:
 
 ```typescript
-// ✅ Good
+// ✅ 좋음
 const process = ProcessSchema.parse(externalData);
 
-// ❌ Avoid
+// ❌ 피하기
 const process = externalData as Process;
 ```
 
-### 5. Use Discriminated Unions
+### 5. 구별된 유니온 사용 (Discriminated Unions)
 
 ```typescript
-// ✅ Good
+// ✅ 좋음
 type Result =
   | { success: true; data: string }
   | { success: false; error: Error };
 
 function handle(result: Result) {
   if (result.success) {
-    // TypeScript knows result.data exists
+    // TypeScript는 result.data가 존재함을 알고 있음
     console.log(result.data);
   } else {
-    // TypeScript knows result.error exists
+    // TypeScript는 result.error가 존재함을 알고 있음
     console.error(result.error);
   }
 }
 ```
 
-## TypeScript Configuration
+## TypeScript 설정
 
-### strict Mode
+### strict 모드
 
-All apps use TypeScript strict mode:
+모든 앱은 TypeScript strict 모드를 사용합니다:
 
 ```json
 {
@@ -409,45 +409,45 @@ All apps use TypeScript strict mode:
 
 ### verbatimModuleSyntax
 
-This requires explicit `type` imports:
+이 옵션은 명시적 `type` import를 요구합니다:
 
 ```typescript
-// ✅ Required
+// ✅ 필수
 import type { Process } from './types';
 import { processData } from './utils';
 
-// ❌ Error
+// ❌ 오류
 import { Process, processData } from './types';
 ```
 
-## Common Patterns
+## 일반적인 패턴
 
-### Optional Chaining
+### 옵셔널 체이닝 (Optional Chaining)
 
 ```typescript
 const name = process?.steps?.[0]?.title ?? 'Untitled';
 ```
 
-### Nullish Coalescing
+### Nullish 병합 (Nullish Coalescing)
 
 ```typescript
 const description = process.description ?? 'No description';
 ```
 
-### Type Assertion (Use Sparingly)
+### 타입 단언 (Type Assertion) - 신중하게 사용
 
 ```typescript
-// Only when you're certain
+// 확실할 때만 사용
 const element = document.getElementById('root') as HTMLElement;
 ```
 
-### Non-null Assertion (Avoid)
+### Non-null 단언 (피하기)
 
 ```typescript
-// ❌ Avoid
+// ❌ 피하기
 const value = process.steps[0]!.value;
 
-// ✅ Better
+// ✅ 더 좋음
 const step = process.steps[0];
 if (step) {
   const value = step.value;
@@ -456,4 +456,4 @@ if (step) {
 
 ---
 
-Next, learn about AI-powered testing strategies used in the Task Process system.
+다음으로, Task Process 시스템에서 사용되는 AI 기반 테스트 전략을 알아봅니다.

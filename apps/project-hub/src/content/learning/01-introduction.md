@@ -1,132 +1,132 @@
-# Introduction to Task Process System
+# Task Process 시스템 소개
 
-Welcome to the Task Process System - a comprehensive monorepo project designed for building, executing, and analyzing business processes.
+Task Process 시스템에 오신 것을 환영합니다 - 비즈니스 프로세스를 구축, 실행, 분석하기 위해 설계된 포괄적인 모노레포 프로젝트입니다.
 
-## What is Task Process?
+## Task Process란 무엇인가?
 
-Task Process is a modern web application suite that enables users to:
+Task Process는 사용자가 다음을 수행할 수 있게 하는 현대적인 웹 애플리케이션 제품군입니다:
 
-- **Build** complex business processes visually
-- **Execute** processes with real-time tracking
-- **Analyze** process performance with detailed analytics
-- **Learn** through interactive documentation
+- **구축**: 복잡한 비즈니스 프로세스를 시각적으로 생성
+- **실행**: 실시간 추적과 함께 프로세스 실행
+- **분석**: 상세한 분석으로 프로세스 성능 분석
+- **학습**: 인터랙티브 문서를 통한 학습
 
-## System Components
+## 시스템 구성 요소
 
-The system consists of four main applications:
+시스템은 4개의 주요 애플리케이션으로 구성됩니다:
 
-### 1. Builder App (Port 5174)
+### 1. Builder 앱 (포트 5173)
 
-A visual process builder that allows users to create complex workflows using a drag-and-drop interface.
+사용자가 드래그 앤 드롭 인터페이스를 사용하여 복잡한 워크플로우를 생성할 수 있는 비주얼 프로세스 빌더입니다.
 
-**Key Features:**
-- Visual flow editor with React Flow
-- JSON export/import
-- Real-time validation
-- Template library
+**주요 기능:**
+- React Flow를 사용한 비주얼 플로우 에디터
+- JSON 내보내기/가져오기
+- 실시간 검증
+- 템플릿 라이브러리
 
-### 2. Executor App (Port 5175)
+### 2. Executor 앱 (포트 5174)
 
-A process execution engine that runs the workflows created in the Builder app.
+Builder 앱에서 생성된 워크플로우를 실행하는 프로세스 실행 엔진입니다.
 
-**Key Features:**
-- Step-by-step execution
-- Progress tracking
-- Data collection
-- ZIP file output
+**주요 기능:**
+- 단계별 실행
+- 진행 상황 추적
+- 데이터 수집
+- ZIP 파일 출력
 
-### 3. Dashboard App (Port 5173)
+### 3. Dashboard 앱 (포트 5175)
 
-An analytics dashboard that provides insights into process performance.
+프로세스 성능에 대한 인사이트를 제공하는 분석 대시보드입니다.
 
-**Key Features:**
-- Real-time statistics
-- Chart.js visualizations
-- CSV export
-- Historical data analysis
+**주요 기능:**
+- 실시간 통계
+- Chart.js 시각화
+- CSV 내보내기
+- 과거 데이터 분석
 
-### 4. Project Hub (Port 5176)
+### 4. Project Hub (포트 5176)
 
-This application! An interactive documentation and learning center.
+바로 이 애플리케이션입니다! 인터랙티브 문서 및 학습 센터입니다.
 
-**Key Features:**
-- Interactive tutorials
-- Design system showcase
-- Architecture diagrams
-- Live examples
+**주요 기능:**
+- 인터랙티브 튜토리얼
+- 디자인 시스템 쇼케이스
+- 아키텍처 다이어그램
+- 라이브 예제
 
-## Technology Stack
+## 기술 스택
 
-### Frontend Framework
-- **React 19** with TypeScript
-- **Vite** for fast development
-- **React Router** for navigation
+### 프론트엔드 프레임워크
+- TypeScript와 함께하는 **React 19**
+- 빠른 개발을 위한 **Vite**
+- 네비게이션을 위한 **React Router**
 
-### UI & Styling
-- **Tailwind CSS** for styling
-- **Lucide Icons** for iconography
-- **React Flow** for visual editing
+### UI & 스타일링
+- 스타일링을 위한 **Tailwind CSS**
+- 아이콘을 위한 **Lucide Icons**
+- 비주얼 편집을 위한 **React Flow**
 
-### State Management
-- **Zustand** for global state
-- **React Context** for component state
+### 상태 관리
+- 전역 상태를 위한 **Zustand**
+- 컴포넌트 상태를 위한 **React Context**
 
-### Build & Development
-- **pnpm** workspaces for monorepo
-- **Turbo** for build orchestration
-- **TypeScript** strict mode
+### 빌드 & 개발
+- 모노레포를 위한 **pnpm** 워크스페이스
+- 빌드 오케스트레이션을 위한 **Turbo**
+- **TypeScript** strict 모드
 
-## Getting Started
+## 시작하기
 
-To get started with the Task Process system:
+Task Process 시스템을 시작하려면:
 
-1. **Install Dependencies**
+1. **의존성 설치**
    ```bash
    pnpm install
    ```
 
-2. **Start Development Servers**
+2. **개발 서버 시작**
    ```bash
    pnpm dev
    ```
 
-3. **Build All Apps**
+3. **모든 앱 빌드**
    ```bash
    pnpm build
    ```
 
-## Project Structure
+## 프로젝트 구조
 
 ```
 Task_Process/
-├── apps/              # Application packages
-│   ├── builder/       # Process builder
-│   ├── executor/      # Process executor
-│   ├── dashboard/     # Analytics dashboard
-│   └── project-hub/   # Documentation hub
-├── packages/          # Shared packages
-│   ├── shared-types/  # TypeScript types
-│   ├── shared-ui/     # React components
-│   └── shared-utils/  # Utility functions
-└── tests/            # E2E tests
+├── apps/              # 애플리케이션 패키지
+│   ├── builder/       # 프로세스 빌더
+│   ├── executor/      # 프로세스 실행기
+│   ├── dashboard/     # 분석 대시보드
+│   └── project-hub/   # 문서 허브
+├── packages/          # 공유 패키지
+│   ├── shared-types/  # TypeScript 타입
+│   ├── shared-ui/     # React 컴포넌트
+│   └── shared-utils/  # 유틸리티 함수
+└── tests/            # E2E 테스트
 ```
 
-## Next Steps
+## 다음 단계
 
-Continue learning by exploring the following topics:
+다음 주제를 탐색하여 계속 학습하세요:
 
-1. **Monorepo Structure** - Understand the workspace architecture
-2. **Type System** - Learn about shared types and validation
-3. **AI Testing** - Discover automated testing strategies
-4. **Real Examples** - See practical code examples
-5. **Best Practices** - Follow recommended patterns
+1. **모노레포 구조** - 워크스페이스 아키텍처 이해
+2. **타입 시스템** - 공유 타입 및 검증에 대해 학습
+3. **AI 테스트** - 자동화된 테스트 전략 발견
+4. **실전 예제** - 실용적인 코드 예제 확인
+5. **모범 사례** - 권장 패턴 따르기
 
-## Resources
+## 리소스
 
-- [GitHub Repository](https://github.com/yourorg/task-process)
-- [API Documentation](https://docs.task-process.com)
-- [Community Discord](https://discord.gg/task-process)
+- [GitHub 저장소](https://github.com/yourorg/task-process)
+- [API 문서](https://docs.task-process.com)
+- [커뮤니티 Discord](https://discord.gg/task-process)
 
 ---
 
-Ready to dive deeper? Continue to the next section to learn about the monorepo structure.
+더 깊이 알아볼 준비가 되셨나요? 다음 섹션으로 계속 진행하여 모노레포 구조에 대해 배워보세요.

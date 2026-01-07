@@ -1,6 +1,5 @@
 import { useProcessStore } from '../../stores/process-store';
-import { DEPARTMENT_NAMES, PRIORITY_LABELS } from '@task-process/shared-types';
-import type { Priority } from '@task-process/shared-types';
+import { DEPARTMENT_NAMES, PROCESS_TYPES } from '@task-process/shared-types';
 import { TrackingService } from '../../services/tracking-service';
 
 export function TrackingSettings() {
@@ -13,7 +12,7 @@ export function TrackingSettings() {
 
   return (
     <div className="bg-white border-b border-gray-200 p-4">
-      <h3 className="text-sm font-semibold text-gray-700 mb-3">추적 관리 설정</h3>
+      <h3 className="text-sm font-semibold text-gray-700 mb-3">프로세스 정보</h3>
 
       <div className="space-y-3">
         {/* Department */}
@@ -38,21 +37,25 @@ export function TrackingSettings() {
           </select>
         </div>
 
-        {/* Process Type */}
+        {/* Process Type - 드롭다운으로 변경 */}
         <div>
           <label className="block text-xs font-medium text-gray-700 mb-1">업무 유형</label>
-          <input
-            type="text"
+          <select
             value={tracking.processType}
             onChange={(e) => updateTracking({ processType: e.target.value })}
-            placeholder="예: ONBOARDING"
             className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          >
+            {Object.entries(PROCESS_TYPES).map(([code, label]) => (
+              <option key={code} value={code}>
+                {label}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* Assigned To ID */}
+        {/* Process Creator ID */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">담당자 ID</label>
+          <label className="block text-xs font-medium text-gray-700 mb-1">업무 생성자 ID</label>
           <div className="flex gap-2">
             <input
               type="text"
@@ -71,58 +74,14 @@ export function TrackingSettings() {
           </div>
         </div>
 
-        {/* Assigned To Name */}
+        {/* Process Creator Name */}
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">담당자 이름</label>
+          <label className="block text-xs font-medium text-gray-700 mb-1">업무 생성자 이름</label>
           <input
             type="text"
             value={tracking.assignedToName}
             onChange={(e) => updateTracking({ assignedToName: e.target.value })}
             placeholder="홍길동"
-            className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Priority */}
-        <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">우선순위</label>
-          <select
-            value={tracking.priority}
-            onChange={(e) => updateTracking({ priority: e.target.value as Priority })}
-            className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {Object.entries(PRIORITY_LABELS).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Due Date */}
-        <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">마감일</label>
-          <input
-            type="datetime-local"
-            value={tracking.dueDate ? tracking.dueDate.slice(0, 16) : ''}
-            onChange={(e) => {
-              const isoDate = e.target.value ? new Date(e.target.value).toISOString() : '';
-              updateTracking({ dueDate: isoDate });
-            }}
-            className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Estimated Hours */}
-        <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">
-            예상 소요 시간 (시간)
-          </label>
-          <input
-            type="number"
-            min="1"
-            value={tracking.estimatedHours}
-            onChange={(e) => updateTracking({ estimatedHours: parseInt(e.target.value) || 1 })}
             className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>

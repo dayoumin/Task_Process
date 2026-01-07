@@ -1,19 +1,19 @@
-# Monorepo Structure
+# 모노레포 구조 (Monorepo Structure)
 
-Learn how the Task Process monorepo is organized and how to work with shared packages.
+Task Process 모노레포가 어떻게 구성되어 있고, 공유 패키지를 어떻게 다루는지 알아봅니다.
 
-## Why Monorepo?
+## 왜 모노레포인가?
 
-A monorepo (monolithic repository) provides several benefits:
+모노레포(Monolithic Repository)는 여러 가지 이점을 제공합니다:
 
-- **Code Sharing**: Share code between applications without publishing packages
-- **Consistent Dependencies**: Single version of dependencies across all apps
-- **Atomic Changes**: Make changes across multiple packages in a single commit
-- **Simplified Development**: One repository to clone and maintain
+- **코드 공유**: 패키지를 배포하지 않고도 애플리케이션 간 코드 공유 가능
+- **일관된 의존성**: 모든 앱에서 단일 버전의 의존성 사용
+- **원자적 변경**: 여러 패키지에 걸친 변경사항을 하나의 커밋으로 처리
+- **간소화된 개발**: 하나의 저장소만 클론하고 유지보수
 
-## Workspace Configuration
+## 워크스페이스 설정 (Workspace Configuration)
 
-The project uses **pnpm workspaces** for package management.
+프로젝트는 패키지 관리를 위해 **pnpm workspaces**를 사용합니다.
 
 ### pnpm-workspace.yaml
 
@@ -23,20 +23,20 @@ packages:
   - 'packages/*'
 ```
 
-This configuration tells pnpm to treat all directories in `apps/` and `packages/` as separate workspaces.
+이 설정은 pnpm에게 `apps/`와 `packages/` 디렉토리의 모든 폴더를 별도의 워크스페이스로 취급하도록 지시합니다.
 
-## Package Structure
+## 패키지 구조
 
-### Applications (`apps/`)
+### 애플리케이션 (`apps/`)
 
-Applications are the end-user facing products. Each app has its own:
+애플리케이션은 최종 사용자를 위한 제품입니다. 각 앱은 다음을 가집니다:
 
-- **package.json** with dependencies
-- **vite.config.ts** for build configuration
-- **src/** directory with source code
-- **dist/** directory (generated) for production build
+- **package.json** - 의존성 정의
+- **vite.config.ts** - 빌드 설정
+- **src/** - 소스 코드 디렉토리
+- **dist/** - (생성됨) 프로덕션 빌드 디렉토리
 
-Example structure:
+예시 구조:
 
 ```
 apps/builder/
@@ -50,13 +50,13 @@ apps/builder/
 └── tsconfig.json
 ```
 
-### Shared Packages (`packages/`)
+### 공유 패키지 (`packages/`)
 
-Shared packages provide reusable code across applications.
+공유 패키지는 애플리케이션 간 재사용 가능한 코드를 제공합니다.
 
 #### shared-types
 
-TypeScript type definitions and Zod schemas.
+TypeScript 타입 정의와 Zod 스키마.
 
 ```typescript
 // packages/shared-types/src/process.ts
@@ -67,7 +67,7 @@ export interface Process {
 }
 ```
 
-Usage in apps:
+앱에서 사용하기:
 
 ```typescript
 import type { Process } from '@task-process/shared-types';
@@ -75,7 +75,7 @@ import type { Process } from '@task-process/shared-types';
 
 #### shared-ui
 
-React components used across multiple apps.
+여러 앱에서 사용되는 React 컴포넌트.
 
 ```typescript
 // packages/shared-ui/src/Button.tsx
@@ -84,7 +84,7 @@ export function Button({ children, ...props }: ButtonProps) {
 }
 ```
 
-Usage:
+사용 방법:
 
 ```typescript
 import { Button } from '@task-process/shared-ui';
@@ -92,7 +92,7 @@ import { Button } from '@task-process/shared-ui';
 
 #### shared-utils
 
-Utility functions and helpers.
+유틸리티 함수와 헬퍼.
 
 ```typescript
 // packages/shared-utils/src/format.ts
@@ -101,17 +101,17 @@ export function formatDate(date: Date): string {
 }
 ```
 
-Usage:
+사용 방법:
 
 ```typescript
 import { formatDate } from '@task-process/shared-utils';
 ```
 
-## Dependency Management
+## 의존성 관리 (Dependency Management)
 
-### Workspace Dependencies
+### 워크스페이스 의존성
 
-Use `workspace:*` protocol in package.json:
+package.json에서 `workspace:*` 프로토콜 사용:
 
 ```json
 {
@@ -122,11 +122,11 @@ Use `workspace:*` protocol in package.json:
 }
 ```
 
-This ensures local packages are linked during development.
+이를 통해 개발 중에 로컬 패키지가 링크됩니다.
 
-### External Dependencies
+### 외부 의존성
 
-External dependencies are managed at the root level when possible:
+외부 의존성은 가능한 경우 루트 레벨에서 관리:
 
 ```json
 {
@@ -139,11 +139,11 @@ External dependencies are managed at the root level when possible:
 }
 ```
 
-## Build System
+## 빌드 시스템 (Build System)
 
-### Turbo Configuration
+### Turbo 설정
 
-Turbo orchestrates builds across the monorepo:
+Turbo는 모노레포 전체의 빌드를 조율합니다:
 
 ```json
 {
@@ -160,86 +160,86 @@ Turbo orchestrates builds across the monorepo:
 }
 ```
 
-### Build Order
+### 빌드 순서
 
-1. **shared-types** builds first (other packages depend on it)
-2. **shared-ui** and **shared-utils** build next
-3. **Applications** build last
+1. **shared-types**가 먼저 빌드됨 (다른 패키지가 의존)
+2. **shared-ui**와 **shared-utils**가 다음에 빌드
+3. **Applications**가 마지막에 빌드
 
-Run all builds:
+모든 빌드 실행:
 
 ```bash
 pnpm build
 ```
 
-Run specific app:
+특정 앱 실행:
 
 ```bash
 pnpm --filter @task-process/builder build
 ```
 
-## Development Workflow
+## 개발 워크플로우
 
-### Installing Dependencies
+### 의존성 설치
 
 ```bash
-# Install all dependencies
+# 모든 의존성 설치
 pnpm install
 
-# Add dependency to specific package
+# 특정 패키지에 의존성 추가
 pnpm --filter @task-process/builder add lucide-react
 ```
 
-### Running Development Servers
+### 개발 서버 실행
 
 ```bash
-# Start all dev servers
+# 모든 개발 서버 시작
 pnpm dev
 
-# Start specific app
+# 특정 앱 시작
 pnpm --filter @task-process/builder dev
 ```
 
-### Type Checking
+### 타입 체크
 
 ```bash
-# Type check all packages
+# 모든 패키지 타입 체크
 pnpm type-check
 
-# Type check specific package
+# 특정 패키지 타입 체크
 pnpm --filter @task-process/shared-types type-check
 ```
 
-## Best Practices
+## 모범 사례 (Best Practices)
 
-### 1. Use Workspace References
+### 1. 워크스페이스 참조 사용
 
-Always use workspace references for internal packages:
+내부 패키지에는 항상 워크스페이스 참조를 사용하세요:
 
 ```json
 "@task-process/shared-types": "workspace:*"
 ```
 
-### 2. Build Shared Packages First
+### 2. 공유 패키지를 먼저 빌드
 
-Before working on apps, ensure shared packages are built:
+앱 작업 전에 공유 패키지가 빌드되었는지 확인:
 
 ```bash
 pnpm --filter @task-process/shared-types build
 ```
 
-### 3. Avoid Circular Dependencies
+### 3. 순환 의존성 방지
 
-Don't create circular dependencies between packages:
+패키지 간 순환 의존성을 만들지 마세요:
 
 ```
 ❌ shared-types → shared-ui → shared-types
 ✅ shared-types → shared-ui
 ```
 
-### 4. Keep Versions Consistent
+### 4. 버전 일관성 유지
 
-Use pnpm overrides to ensure consistent versions:
+pnpm overrides를 사용하여 일관된 버전 보장:
 
 ```json
 {
@@ -251,70 +251,70 @@ Use pnpm overrides to ensure consistent versions:
 }
 ```
 
-### 5. Use Path Aliases Sparingly
+### 5. 경로 별칭은 신중하게 사용
 
-Prefer explicit imports over path aliases for clarity:
+명확성을 위해 경로 별칭보다 명시적 import를 선호:
 
 ```typescript
-// ✅ Good
+// ✅ 좋음
 import { Process } from '@task-process/shared-types';
 
-// ❌ Avoid
+// ❌ 피하기
 import { Process } from '@/types';
 ```
 
-## Common Tasks
+## 일반적인 작업
 
-### Adding a New Package
+### 새 패키지 추가
 
-1. Create directory in `packages/`
-2. Add `package.json` with `@task-process/` scope
-3. Add to workspace in `pnpm-workspace.yaml` (automatic with `packages/*`)
-4. Run `pnpm install`
+1. `packages/`에 디렉토리 생성
+2. `@task-process/` 스코프로 `package.json` 추가
+3. `pnpm-workspace.yaml`에 추가 (`packages/*`로 자동)
+4. `pnpm install` 실행
 
-### Adding a New App
+### 새 앱 추가
 
-1. Create directory in `apps/`
-2. Add `package.json`, `vite.config.ts`, etc.
-3. Add workspace dependencies
-4. Run `pnpm install`
+1. `apps/`에 디렉토리 생성
+2. `package.json`, `vite.config.ts` 등 추가
+3. 워크스페이스 의존성 추가
+4. `pnpm install` 실행
 
-### Updating Dependencies
+### 의존성 업데이트
 
 ```bash
-# Update all dependencies
+# 모든 의존성 업데이트
 pnpm update
 
-# Update specific dependency
+# 특정 의존성 업데이트
 pnpm update react react-dom
 ```
 
-## Troubleshooting
+## 문제 해결 (Troubleshooting)
 
-### Module Not Found
+### 모듈을 찾을 수 없음
 
-If you get module not found errors:
+모듈을 찾을 수 없다는 오류가 나오면:
 
-1. Ensure shared package is built: `pnpm build`
-2. Clear node_modules: `pnpm clean && pnpm install`
-3. Restart TypeScript server in your IDE
+1. 공유 패키지가 빌드되었는지 확인: `pnpm build`
+2. node_modules 정리: `pnpm clean && pnpm install`
+3. IDE에서 TypeScript 서버 재시작
 
-### Type Errors
+### 타입 오류
 
-If TypeScript can't find types:
+TypeScript가 타입을 찾을 수 없으면:
 
-1. Build shared-types: `pnpm --filter @task-process/shared-types build`
-2. Check tsconfig.json references
-3. Restart IDE
+1. shared-types 빌드: `pnpm --filter @task-process/shared-types build`
+2. tsconfig.json 참조 확인
+3. IDE 재시작
 
-### Build Failures
+### 빌드 실패
 
-If builds fail:
+빌드가 실패하면:
 
-1. Check build order (shared packages first)
-2. Clear Turbo cache: `rm -rf .turbo`
-3. Run clean build: `pnpm clean && pnpm install && pnpm build`
+1. 빌드 순서 확인 (공유 패키지 먼저)
+2. Turbo 캐시 정리: `rm -rf .turbo`
+3. 클린 빌드 실행: `pnpm clean && pnpm install && pnpm build`
 
 ---
 
-Next, learn about the type system and how types are shared across the monorepo.
+다음으로, 타입 시스템과 모노레포 전체에서 타입을 공유하는 방법을 알아봅니다.

@@ -25,7 +25,10 @@
       "Bash(pnpm --filter @task-process/builder build:*)",
       "Bash(pnpm install:*)",
       "Bash(pnpm exec vitest:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(pnpm:*)"
     ]
   },
   "mcpServers": {},

@@ -24,6 +24,25 @@ export const DEPARTMENT_NAMES: Record<string, string> = {
 }
 
 /**
+ * 업무 유형 상수 (고정된 선택지)
+ */
+export const PROCESS_TYPES: Record<string, string> = {
+  'BUDGET_EXECUTION': '예산-집행',
+  'BUDGET_EXPENDITURE': '예산-지출',
+  'BUDGET_PLANNING': '예산-계획',
+  'HR_RECRUITMENT': '인사-채용',
+  'HR_EVALUATION': '인사-평가',
+  'HR_ONBOARDING': '인사-온보딩',
+  'HR_LEAVE': '인사-휴가신청',
+  'PURCHASE_REQUEST': '구매-요청',
+  'PURCHASE_CONTRACT': '구매-계약',
+  'PURCHASE_PAYMENT': '구매-대금지급',
+  'APPROVAL_DOCUMENT': '결재-문서',
+  'APPROVAL_EXPENSE': '결재-경비',
+  'GENERAL': '일반업무',
+}
+
+/**
  * 우선순위 스키마
  */
 export const PrioritySchema = z.enum(['low', 'medium', 'high', 'urgent'])

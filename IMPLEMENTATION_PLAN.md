@@ -47,10 +47,10 @@
 #### 1.1 Admin Builder 초기화 (1시간)
 ```bash
 cd business-process-executor
-npm create vite@latest admin-builder -- --template react-ts
-cd admin-builder
-npm install reactflow zustand lucide-react
-npm install -D @types/node
+pnpm create vite@latest admin-builder -- --template react-ts
+cd apps/builder
+pnpm install reactflow zustand lucide-react
+pnpm install -D @types/node
 ```
 
 **폴더 구조 생성**:
@@ -78,9 +78,9 @@ user-executor/
 
 #### 1.3 Admin Dashboard 초기화 (30분)
 ```bash
-npm create vite@latest admin-dashboard -- --template react-ts
-cd admin-dashboard
-npm install chart.js react-chartjs-2
+pnpm create vite@latest admin-dashboard -- --template react-ts
+cd apps/dashboard
+pnpm install chart.js react-chartjs-2
 ```
 
 ---

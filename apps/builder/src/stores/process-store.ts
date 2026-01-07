@@ -33,6 +33,7 @@ interface ProcessStore {
   // Node actions
   addNode: (type: string, position: { x: number; y: number }) => void;
   removeNode: (id: string) => void;
+  duplicateNode: (id: string) => void;
   updateNodeData: (id: string, data: Partial<NodeData>) => void;
   selectNode: (node: Node | null) => void;
   onNodesChange: (changes: NodeChange[]) => void;
@@ -50,9 +51,9 @@ interface ProcessStore {
 
 const initialTracking: TrackingConfig = {
   organizationId: TrackingService.generateOrganizationId(),
-  departmentId: 'DEPT-HR',
-  departmentName: '인사팀',
-  processType: 'GENERAL',
+  departmentId: 'DEPT-FIN',
+  departmentName: '재무팀',
+  processType: 'BUDGET_EXECUTION',
   priority: 'medium',
   assignedTo: '',
   assignedToName: '',
@@ -91,7 +92,26 @@ export const useProcessStore = create<ProcessStore>((set, get) => ({
     set({
       nodes: get().nodes.filter((n) => n.id !== id),
       edges: get().edges.filter((e) => e.source !== id && e.target !== id),
+      selectedNode: get().selectedNode?.id === id ? null : get().selectedNode,
     });
+  },
+
+  duplicateNode: (id) => {
+    const node = get().nodes.find((n) => n.id === id);
+    if (!node) return;
+
+    const newNode: Node = {
+      ...node,
+      id: `${node.type}-${Date.now()}`,
+      position: {
+        x: node.position.x + 50,
+        y: node.position.y + 50,
+      },
+      data: JSON.parse(JSON.stringify(node.data)), // Deep copy
+      selected: false,
+    };
+
+    set({ nodes: [...get().nodes, newNode] });
   },
 
   updateNodeData: (id, data) => {

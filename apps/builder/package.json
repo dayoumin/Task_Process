@@ -13,10 +13,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@task-process/shared-types": "workspace:*",
     "@task-process/shared-ui": "workspace:*",
     "@task-process/shared-utils": "workspace:*",
-    "@tailwindcss/postcss": "^4.1.18",
     "lucide-react": "^0.562.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -34,10 +34,11 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
+    "happy-dom": "^15.11.7",
     "postcss": "^8.5.6",
+    "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
     "vite": "^7.2.4",
-    "vitest": "^2.1.8",
-    "happy-dom": "^15.11.7"
+    "vitest": "^2.1.8"
   }
 }

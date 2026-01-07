@@ -1,0 +1,139 @@
+{
+  "id": "PROC-20260107-0004",
+  "name": "문서 결재",
+  "version": "1.0.0",
+  "tracking": {
+    "organizationId": "CORP-2026",
+    "departmentId": "DEPT-IT",
+    "departmentName": "IT팀",
+    "processType": "APPROVAL_DOCUMENT",
+    "priority": "medium",
+    "assignedTo": "USER-40004",
+    "assignedToName": "정기획",
+    "dueDate": "2026-01-10T17:00:00Z",
+    "estimatedHours": 1
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "문서 작성",
+      "description": "결재받을 문서의 기본 정보를 입력하세요",
+      "checklist": [
+        {
+          "id": "check-1",
+          "text": "문서 양식 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-1",
+          "type": "text",
+          "label": "문서 제목",
+          "required": true,
+          "placeholder": "예: 2026년 1분기 IT 장비 구매 계획서"
+        },
+        {
+          "id": "field-2",
+          "type": "text",
+          "label": "문서 분류",
+          "required": true,
+          "placeholder": "예: 기획서, 보고서, 제안서 등"
+        },
+        {
+          "id": "field-3",
+          "type": "textarea",
+          "label": "문서 요약",
+          "required": true,
+          "placeholder": "문서의 핵심 내용을 3-5줄로 요약",
+          "validation": {
+            "minLength": 30,
+            "maxLength": 300
+          }
+        },
+        {
+          "id": "field-4",
+          "type": "file",
+          "label": "문서 파일",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "step-2",
+      "title": "결재선 지정",
+      "description": "문서 결재선을 지정하세요",
+      "checklist": [
+        {
+          "id": "check-2",
+          "text": "결재 규정에 따른 결재선 확인 완료",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-5",
+          "type": "text",
+          "label": "1차 결재자 (직속 상사)",
+          "required": true,
+          "placeholder": "팀장 이름"
+        },
+        {
+          "id": "field-6",
+          "type": "text",
+          "label": "2차 결재자 (부서장)",
+          "required": true,
+          "placeholder": "부서장 이름"
+        },
+        {
+          "id": "field-7",
+          "type": "text",
+          "label": "최종 결재자 (선택)",
+          "required": false,
+          "placeholder": "임원진 (필요시)"
+        },
+        {
+          "id": "field-8",
+          "type": "text",
+          "label": "참조자",
+          "required": false,
+          "placeholder": "결재 참조가 필요한 사람 (선택)"
+        }
+      ]
+    },
+    {
+      "id": "step-3",
+      "title": "결재 요청",
+      "description": "결재를 요청하고 진행 상황을 모니터링하세요",
+      "checklist": [
+        {
+          "id": "check-3",
+          "text": "결재 요청 알림 발송 확인",
+          "required": true
+        }
+      ],
+      "fields": [
+        {
+          "id": "field-9",
+          "type": "date",
+          "label": "결재 요청일",
+          "required": true
+        },
+        {
+          "id": "field-10",
+          "type": "textarea",
+          "label": "결재 요청 메시지",
+          "required": false,
+          "placeholder": "결재자에게 전달할 메시지 (선택)"
+        }
+      ]
+    },
+    {
+      "id": "step-4",
+      "title": "완료",
+      "description": "문서 결재가 완료되었습니다",
+      "checklist": [],
+      "fields": []
+    }
+  ]
+}

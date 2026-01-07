@@ -1,0 +1,85 @@
+/* ============================================ */
+/* Design System Base - 2025 Modern Style      */
+/* Shared across all apps in monorepo          */
+/* ============================================ */
+
+@import "tailwindcss";
+
+/* Base Resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  background: rgb(250 250 250);
+  color: rgb(23 23 23);
+}
+
+/* Minimal Scrollbar (Linear/Vercel style) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(212 212 212);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(163 163 163);
+}
+
+/* Smooth Transitions */
+button,
+a,
+input,
+select,
+textarea {
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Accessible Focus Rings */
+*:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+/* Button Base Styles */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Input Base Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: rgb(59 130 246);
+}

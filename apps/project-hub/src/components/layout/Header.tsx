@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 
 const routeTitles: Record<string, string> = {
-  '/': 'Dashboard',
-  '/design-system': 'Design System',
-  '/learning': 'Learning Center',
-  '/architecture': 'Architecture',
+  '/': '대시보드',
+  '/design-system': '디자인 시스템',
+  '/learning': '학습 센터',
+  '/architecture': '아키텍처',
 };
 
 export default function Header() {

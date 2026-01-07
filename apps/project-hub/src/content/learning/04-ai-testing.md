@@ -1,21 +1,21 @@
-# AI-Powered Testing
+# AI 기반 테스트 (AI-Powered Testing)
 
-Learn about the comprehensive testing strategy used in the Task Process system, powered by AI-assisted tools.
+Task Process 시스템에서 사용되는 포괄적인 테스트 전략을 AI 보조 도구와 함께 알아봅니다.
 
-## Testing Philosophy
+## 테스트 철학
 
-The Task Process system uses a multi-layered testing approach:
+Task Process 시스템은 다층적 테스트 접근 방식을 사용합니다:
 
-1. **Unit Tests** - Test individual functions and components
-2. **Integration Tests** - Test component interactions
-3. **E2E Tests** - Test complete user workflows
-4. **Type Tests** - Verify TypeScript types at compile time
+1. **단위 테스트 (Unit Tests)** - 개별 함수와 컴포넌트 테스트
+2. **통합 테스트 (Integration Tests)** - 컴포넌트 간 상호작용 테스트
+3. **E2E 테스트 (E2E Tests)** - 완전한 사용자 워크플로우 테스트
+4. **타입 테스트 (Type Tests)** - 컴파일 타임에 TypeScript 타입 검증
 
-## Testing Stack
+## 테스트 스택
 
 ### Vitest
 
-Fast unit testing framework with native ESM support.
+네이티브 ESM 지원을 갖춘 빠른 단위 테스트 프레임워크.
 
 ```typescript
 // packages/shared-utils/src/format.test.ts
@@ -36,7 +36,7 @@ describe('formatDate', () => {
 
 ### Playwright
 
-E2E testing with real browser automation.
+실제 브라우저 자동화를 통한 E2E 테스트.
 
 ```typescript
 // tests/e2e/builder.spec.ts
@@ -55,7 +55,7 @@ test('create new process', async ({ page }) => {
 
 ### React Testing Library
 
-Component testing with user-centric approach.
+사용자 중심 접근 방식의 컴포넌트 테스트.
 
 ```typescript
 // packages/shared-ui/src/Button.test.tsx
@@ -86,37 +86,37 @@ describe('Button', () => {
 });
 ```
 
-## AI-Assisted Testing
+## AI 보조 테스트
 
-### Claude Code Integration
+### Claude Code 통합
 
-Use Claude Code to generate comprehensive tests:
+Claude Code를 사용하여 포괄적인 테스트 생성:
 
 ```bash
-# Generate tests for a component
+# 컴포넌트에 대한 테스트 생성
 claude "Write unit tests for src/components/ProcessList.tsx"
 
-# Generate E2E test
+# E2E 테스트 생성
 claude "Create E2E test for the process creation workflow"
 
-# Update tests after refactoring
+# 리팩토링 후 테스트 업데이트
 claude "Update tests in __tests__ to match the new API"
 ```
 
-### Test Generation Patterns
+### 테스트 생성 패턴
 
-Claude Code follows these patterns when generating tests:
+Claude Code는 테스트를 생성할 때 다음 패턴을 따릅니다:
 
-1. **Arrange-Act-Assert (AAA)**
+1. **AAA 패턴 (Arrange-Act-Assert)**
    ```typescript
    it('should update process name', () => {
-     // Arrange
+     // Arrange (준비)
      const process = createMockProcess();
 
-     // Act
+     // Act (실행)
      const updated = updateProcessName(process, 'New Name');
 
-     // Assert
+     // Assert (검증)
      expect(updated.name).toBe('New Name');
    });
    ```
@@ -126,13 +126,13 @@ Claude Code follows these patterns when generating tests:
    describe('ProcessValidator', () => {
      describe('when process is valid', () => {
        it('returns success result', () => {
-         // test code
+         // 테스트 코드
        });
      });
 
      describe('when process is invalid', () => {
        it('returns error result', () => {
-         // test code
+         // 테스트 코드
        });
      });
    });
@@ -141,50 +141,50 @@ Claude Code follows these patterns when generating tests:
 3. **Given-When-Then (BDD)**
    ```typescript
    test('process creation workflow', async () => {
-     // Given: User is on the builder page
+     // Given: 사용자가 빌더 페이지에 있음
      await page.goto('/builder');
 
-     // When: User creates a new process
+     // When: 사용자가 새 프로세스를 생성
      await createProcess('Test Process');
 
-     // Then: Process appears in the list
+     // Then: 프로세스가 목록에 나타남
      await expect(page.locator('[data-process-id]')).toBeVisible();
    });
    ```
 
-## Test Organization
+## 테스트 구성
 
-### File Structure
+### 파일 구조
 
 ```
 src/
 ├── components/
 │   ├── Button.tsx
-│   └── Button.test.tsx          # Co-located tests
+│   └── Button.test.tsx          # 함께 위치한 테스트
 ├── utils/
 │   ├── format.ts
 │   └── format.test.ts
-└── __tests__/                    # Integration tests
+└── __tests__/                    # 통합 테스트
     └── workflow.test.tsx
 ```
 
-### Test Naming
+### 테스트 명명 규칙
 
 ```typescript
-// ✅ Good: Descriptive test names
+// ✅ 좋음: 설명적인 테스트 이름
 it('should validate email format correctly');
 it('displays error message when validation fails');
 it('redirects to dashboard after successful login');
 
-// ❌ Avoid: Vague test names
+// ❌ 피하기: 모호한 테스트 이름
 it('works');
 it('test email');
 it('validation');
 ```
 
-## Mocking
+## 모킹 (Mocking)
 
-### Function Mocks
+### 함수 모킹
 
 ```typescript
 import { vi } from 'vitest';
@@ -203,7 +203,7 @@ it('fetches process data', async () => {
 });
 ```
 
-### Module Mocks
+### 모듈 모킹
 
 ```typescript
 vi.mock('@task-process/shared-utils', () => ({
@@ -212,7 +212,7 @@ vi.mock('@task-process/shared-utils', () => ({
 }));
 ```
 
-### Component Mocks
+### 컴포넌트 모킹
 
 ```typescript
 vi.mock('../ProcessList', () => ({
@@ -224,9 +224,9 @@ vi.mock('../ProcessList', () => ({
 }));
 ```
 
-## Coverage
+## 커버리지 (Coverage)
 
-### Configuration
+### 설정
 
 ```typescript
 // vitest.config.ts
@@ -246,26 +246,26 @@ export default defineConfig({
 });
 ```
 
-### Running Coverage
+### 커버리지 실행
 
 ```bash
-# Generate coverage report
+# 커버리지 리포트 생성
 pnpm test:coverage
 
-# View HTML report
+# HTML 리포트 보기
 open coverage/index.html
 ```
 
-### Coverage Goals
+### 커버리지 목표
 
-- **Statements**: > 80%
-- **Branches**: > 75%
-- **Functions**: > 80%
-- **Lines**: > 80%
+- **Statements (구문)**: > 80%
+- **Branches (분기)**: > 75%
+- **Functions (함수)**: > 80%
+- **Lines (라인)**: > 80%
 
-## E2E Testing
+## E2E 테스트
 
-### Page Object Pattern
+### Page Object 패턴
 
 ```typescript
 // tests/pages/BuilderPage.ts
@@ -293,7 +293,7 @@ export class BuilderPage {
   }
 }
 
-// Usage
+// 사용법
 test('create process with steps', async ({ page }) => {
   const builder = new BuilderPage(page);
 
@@ -306,7 +306,7 @@ test('create process with steps', async ({ page }) => {
 });
 ```
 
-### Visual Regression
+### 비주얼 리그레션 (Visual Regression)
 
 ```typescript
 test('process builder layout', async ({ page }) => {
@@ -315,9 +315,9 @@ test('process builder layout', async ({ page }) => {
 });
 ```
 
-## Snapshot Testing
+## 스냅샷 테스트 (Snapshot Testing)
 
-### Component Snapshots
+### 컴포넌트 스냅샷
 
 ```typescript
 import { render } from '@testing-library/react';
@@ -330,7 +330,7 @@ it('matches snapshot', () => {
 });
 ```
 
-### Inline Snapshots
+### 인라인 스냅샷
 
 ```typescript
 it('generates correct JSON', () => {
@@ -345,9 +345,9 @@ it('generates correct JSON', () => {
 });
 ```
 
-## Performance Testing
+## 성능 테스트 (Performance Testing)
 
-### Component Rendering
+### 컴포넌트 렌더링
 
 ```typescript
 import { renderHook } from '@testing-library/react';
@@ -363,7 +363,7 @@ it('renders large list efficiently', () => {
 });
 ```
 
-### Hook Performance
+### Hook 성능
 
 ```typescript
 it('memoizes expensive calculations', () => {
@@ -373,13 +373,13 @@ it('memoizes expensive calculations', () => {
   );
 
   const firstResult = result.current;
-  rerender({ data: mockData }); // Same data
+  rerender({ data: mockData }); // 같은 데이터
 
-  expect(result.current).toBe(firstResult); // Same reference
+  expect(result.current).toBe(firstResult); // 같은 참조
 });
 ```
 
-## Continuous Integration
+## 지속적 통합 (Continuous Integration)
 
 ### GitHub Actions
 
@@ -412,19 +412,19 @@ jobs:
         uses: codecov/codecov-action@v3
 ```
 
-## Best Practices
+## 모범 사례
 
-### 1. Test Behavior, Not Implementation
+### 1. 구현이 아닌 동작을 테스트
 
 ```typescript
-// ✅ Good: Tests behavior
+// ✅ 좋음: 동작을 테스트
 it('displays success message after save', async () => {
   render(<ProcessForm />);
   await userEvent.click(screen.getByText('Save'));
   expect(screen.getByText('Saved successfully')).toBeVisible();
 });
 
-// ❌ Avoid: Tests implementation
+// ❌ 피하기: 구현을 테스트
 it('calls setState with correct value', () => {
   const { result } = renderHook(() => useProcessForm());
   result.current.handleSave();
@@ -432,63 +432,63 @@ it('calls setState with correct value', () => {
 });
 ```
 
-### 2. Keep Tests Independent
+### 2. 테스트를 독립적으로 유지
 
 ```typescript
-// ✅ Good: Each test is independent
+// ✅ 좋음: 각 테스트가 독립적
 describe('ProcessList', () => {
   it('displays empty state', () => {
     render(<ProcessList processes={[]} />);
-    // test code
+    // 테스트 코드
   });
 
   it('displays processes', () => {
     render(<ProcessList processes={mockProcesses} />);
-    // test code
+    // 테스트 코드
   });
 });
 
-// ❌ Avoid: Tests depend on each other
+// ❌ 피하기: 테스트가 서로 의존
 let processes = [];
 it('starts empty', () => { /* ... */ });
 it('adds process', () => { processes.push(/* ... */); });
 ```
 
-### 3. Use Data-Testid for E2E
+### 3. E2E에는 data-testid 사용
 
 ```typescript
-// Component
+// 컴포넌트
 <button data-testid="save-button">Save</button>
 
-// Test
+// 테스트
 await page.click('[data-testid="save-button"]');
 ```
 
-### 4. Mock External Dependencies
+### 4. 외부 의존성 모킹
 
 ```typescript
-// ✅ Good: Mock external APIs
+// ✅ 좋음: 외부 API 모킹
 vi.mock('./api', () => ({
   fetchProcesses: vi.fn(() => Promise.resolve(mockProcesses)),
 }));
 
-// ❌ Avoid: Real API calls in tests
+// ❌ 피하기: 테스트에서 실제 API 호출
 it('loads processes', async () => {
-  const processes = await fetch('/api/processes'); // Real API call
+  const processes = await fetch('/api/processes'); // 실제 API 호출
 });
 ```
 
-### 5. Write Readable Assertions
+### 5. 읽기 쉬운 단언문 작성
 
 ```typescript
-// ✅ Good: Clear assertion
+// ✅ 좋음: 명확한 단언문
 expect(processes).toHaveLength(3);
 expect(processes[0].name).toBe('Test Process');
 
-// ❌ Avoid: Complex assertion
+// ❌ 피하기: 복잡한 단언문
 expect(processes.length === 3 && processes[0].name === 'Test Process').toBeTruthy();
 ```
 
 ---
 
-Continue to the next section to see real-world examples from the Task Process system.
+다음 섹션에서 Task Process 시스템의 실제 예제를 살펴봅니다.

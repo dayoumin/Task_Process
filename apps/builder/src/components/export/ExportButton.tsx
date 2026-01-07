@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Download } from 'lucide-react';
 import { useProcessStore } from '../../stores/process-store';
 import { ExportService } from '../../services/export-service';
@@ -8,6 +8,54 @@ export function ExportButton() {
   const { nodes, edges, processName, processId, tracking } = useProcessStore();
   const [showError, setShowError] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!showError) return;
+
+    // Focus modal when it opens
+    modalRef.current?.focus();
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowError(false);
+      }
+    };
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll(
+          'button, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        if (e.shiftKey && document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        } else if (!e.shiftKey && document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('keydown', handleTab);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleTab);
+    };
+  }, [showError]);
+
+  useEffect(() => {
+    if (!showError && buttonRef.current) {
+      // Return focus to button when modal closes
+      buttonRef.current.focus();
+    }
+  }, [showError]);
 
   const handleExport = () => {
     // Validate process
@@ -35,7 +83,9 @@ export function ExportButton() {
       setShowError(false);
       setErrors([]);
     } catch (error) {
-      setErrors([error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다']);
+      const userMessage = '내보내기 중 오류가 발생했습니다. 다시 시도해주세요.';
+      console.error('Export error:', error);
+      setErrors([userMessage]);
       setShowError(true);
     }
   };
@@ -43,18 +93,33 @@ export function ExportButton() {
   return (
     <div>
       <button
+        ref={buttonRef}
         onClick={handleExport}
-        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+        aria-label="프로세스 JSON 파일로 내보내기"
       >
-        <Download size={18} />
-        JSON 내보내기
+        <Download size={16} />
+        내보내기
       </button>
 
       {showError && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold text-red-600 mb-3">검증 오류</h3>
-            <ul className="space-y-1 mb-4">
+        <div
+          className="fixed inset-0 bg-black/20 flex items-center justify-center z-50 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="error-title"
+          onClick={() => setShowError(false)}
+        >
+          <div
+            ref={modalRef}
+            className="bg-white rounded-lg p-5 max-w-md w-full border border-gray-200 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+            tabIndex={-1}
+          >
+            <h3 id="error-title" className="text-base font-semibold text-red-600 mb-3">
+              검증 오류
+            </h3>
+            <ul className="space-y-1 mb-4" role="list">
               {errors.map((error, index) => (
                 <li key={index} className="text-sm text-gray-700">
                   • {error}
@@ -63,7 +128,8 @@ export function ExportButton() {
             </ul>
             <button
               onClick={() => setShowError(false)}
-              className="w-full px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded transition-colors"
+              className="w-full px-4 py-2 bg-gray-900 text-white text-sm hover:bg-gray-800 rounded-md transition-colors font-medium"
+              autoFocus
             >
               확인
             </button>
