@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, memo, useCallback } from 'react';
 import { FileText, Plus, ChevronDown, ChevronRight, MoreVertical, Copy, Trash2 } from 'lucide-react';
 
 interface Process {
@@ -19,7 +19,7 @@ interface ProcessListProps {
   onToggleExpand: (id: string) => void;
 }
 
-export function ProcessList({
+export const ProcessList = memo(function ProcessList({
   processes,
   activeProcessId,
   onSelectProcess,
@@ -31,45 +31,77 @@ export function ProcessList({
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [menuOpenId, setMenuOpenId] = useState<string | null>(null);
 
+  // Close dropdown menu when clicking outside
+  useEffect(() => {
+    if (!menuOpenId) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if click is outside the dropdown menu
+      if (!target.closest('[data-dropdown-menu]')) {
+        setMenuOpenId(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpenId]);
+
+  // Memoized event handlers for better performance
+  const handleDuplicate = useCallback((id: string) => {
+    onDuplicateProcess(id);
+    setMenuOpenId(null);
+  }, [onDuplicateProcess]);
+
+  const handleDelete = useCallback((id: string, name: string) => {
+    if (window.confirm(`Delete "${name}"?`)) {
+      onDeleteProcess(id);
+    }
+    setMenuOpenId(null);
+  }, [onDeleteProcess]);
+
+  const handleToggleMenu = useCallback((id: string) => {
+    setMenuOpenId((prev) => (prev === id ? null : id));
+  }, []);
+
   return (
-    <div className="flex flex-col h-full bg-gray-50 border-r border-gray-200">
+    <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-gray-200 bg-white">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-700">프로세스 목록</h2>
-          <button
-            onClick={onCreateProcess}
-            className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
-            title="새 프로세스 생성"
-          >
-            <Plus size={18} />
-          </button>
-        </div>
+      <div className="h-14 px-6 border-b border-gray-200 bg-white flex items-center justify-between">
+        <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Processes</h2>
+        <button
+          onClick={onCreateProcess}
+          className="w-8 h-8 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition-colors"
+          aria-label="Create new process"
+          title="New Process"
+        >
+          <Plus size={16} />
+        </button>
       </div>
 
       {/* Process List */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto bg-white">
         {processes.length === 0 ? (
-          <div className="px-4 py-8 text-center">
-            <FileText size={48} className="mx-auto text-gray-300 mb-3" />
-            <p className="text-sm text-gray-500 mb-3">프로세스가 없습니다</p>
+          <div className="px-6 py-16 text-center">
+            <FileText size={32} className="mx-auto text-gray-300 mb-4" strokeWidth={1.5} />
+            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4">No Processes</p>
             <button
               onClick={onCreateProcess}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+              className="h-10 px-6 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all"
             >
-              첫 프로세스 만들기
+              Create First Process
             </button>
           </div>
         ) : (
-          <div className="p-2 space-y-1">
+          <div className="p-3 space-y-1">
             {processes.map((process) => (
               <div
                 key={process.id}
                 className={`
-                  group relative rounded-lg transition-all cursor-pointer
+                  group relative transition-all cursor-pointer border
                   ${activeProcessId === process.id
-                    ? 'bg-blue-50 border border-blue-200'
-                    : 'hover:bg-white border border-transparent'
+                    ? 'bg-gray-900 text-white border-gray-900'
+                    : 'bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300'
                   }
                 `}
                 onMouseEnter={() => setHoveredId(process.id)}
@@ -85,34 +117,37 @@ export function ProcessList({
                       e.stopPropagation();
                       onToggleExpand(process.id);
                     }}
-                    className="flex-shrink-0 text-gray-400 hover:text-gray-600"
+                    className={`flex-shrink-0 ${
+                      activeProcessId === process.id ? 'text-gray-300' : 'text-gray-400'
+                    } hover:text-gray-600`}
+                    aria-label={process.isExpanded ? 'Collapse process details' : 'Expand process details'}
+                    aria-expanded={process.isExpanded}
                   >
                     {process.isExpanded ? (
-                      <ChevronDown size={16} />
+                      <ChevronDown size={14} />
                     ) : (
-                      <ChevronRight size={16} />
+                      <ChevronRight size={14} />
                     )}
                   </button>
 
                   {/* Process Icon */}
                   <FileText
-                    size={16}
+                    size={14}
+                    strokeWidth={2}
                     className={`flex-shrink-0 ${
-                      activeProcessId === process.id ? 'text-blue-600' : 'text-gray-400'
+                      activeProcessId === process.id ? 'text-white' : 'text-gray-500'
                     }`}
                   />
 
                   {/* Process Info */}
                   <div className="flex-1 min-w-0">
-                    <div
-                      className={`text-sm font-medium truncate ${
-                        activeProcessId === process.id ? 'text-blue-900' : 'text-gray-900'
-                      }`}
-                    >
+                    <div className={`text-sm font-medium truncate`}>
                       {process.name}
                     </div>
                     {process.isExpanded && (
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className={`text-xs mt-1 ${
+                        activeProcessId === process.id ? 'text-gray-300' : 'text-gray-500'
+                      }`}>
                         {process.processType} · {process.updatedAt}
                       </div>
                     )}
@@ -120,45 +155,52 @@ export function ProcessList({
 
                   {/* Action Menu */}
                   {(hoveredId === process.id || menuOpenId === process.id) && (
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0" data-dropdown-menu>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setMenuOpenId(menuOpenId === process.id ? null : process.id);
+                          handleToggleMenu(process.id);
                         }}
-                        className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
+                        className={`w-7 h-7 flex items-center justify-center ${
+                          activeProcessId === process.id
+                            ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                            : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                        }`}
+                        aria-label="Process actions menu"
+                        aria-expanded={menuOpenId === process.id}
+                        aria-haspopup="menu"
                       >
                         <MoreVertical size={14} />
                       </button>
 
                       {/* Dropdown Menu */}
                       {menuOpenId === process.id && (
-                        <div className="absolute right-2 top-full mt-1 z-10 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[140px]">
+                        <div
+                          className="absolute right-2 top-full mt-1 z-50 bg-white shadow-lg border border-gray-200 py-1 min-w-[140px]"
+                          role="menu"
+                          aria-label="Process actions"
+                        >
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              onDuplicateProcess(process.id);
-                              setMenuOpenId(null);
+                              handleDuplicate(process.id);
                             }}
-                            className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                            className="w-full px-3 py-2 text-left text-xs text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                            role="menuitem"
                           >
-                            <Copy size={14} />
-                            복제
+                            <Copy size={12} />
+                            Duplicate
                           </button>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              if (
-                                window.confirm(`"${process.name}" 프로세스를 삭제하시겠습니까?`)
-                              ) {
-                                onDeleteProcess(process.id);
-                              }
-                              setMenuOpenId(null);
+                              handleDelete(process.id, process.name);
                             }}
-                            className="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                            className="w-full px-3 py-2 text-left text-xs text-red-600 hover:bg-red-50 flex items-center gap-2"
+                            role="menuitem"
                           >
-                            <Trash2 size={14} />
-                            삭제
+                            <Trash2 size={12} />
+                            Delete
                           </button>
                         </div>
                       )}
@@ -172,4 +214,4 @@ export function ProcessList({
       </div>
     </div>
   );
-}
+});

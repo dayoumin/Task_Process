@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { PlayCircle, FileText, GitBranch, CheckCircle, ChevronDown, Plus } from 'lucide-react';
 import { useMultiProcessStore } from '../../stores/multi-process-store';
 
@@ -57,7 +57,7 @@ const nodeTypes = [
   },
 ];
 
-export function NodePalette() {
+export const NodePalette = memo(function NodePalette() {
   const [isExpanded, setIsExpanded] = useState(true);
   const addNode = useMultiProcessStore((state) => state.addNode);
 
@@ -75,6 +75,9 @@ export function NodePalette() {
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+        aria-label="Toggle node palette"
+        aria-expanded={isExpanded}
+        aria-controls="node-palette-content"
       >
         <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Add Nodes</h3>
         <ChevronDown
@@ -84,12 +87,13 @@ export function NodePalette() {
       </button>
 
       {isExpanded && (
-        <div className="px-6 pb-6 space-y-2">
+        <div id="node-palette-content" className="px-6 pb-6 space-y-2" role="region" aria-label="Available node types">
           {nodeTypes.map(({ type, label, icon: Icon, iconColor }) => (
             <button
               key={type}
               onClick={() => handleAddNode(type)}
               className="w-full h-11 px-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all flex items-center gap-3 group"
+              aria-label={`Add ${label} node to canvas`}
             >
               <div className={`flex-shrink-0 w-5 h-5 ${iconColor} flex items-center justify-center`}>
                 <Icon size={16} strokeWidth={2.5} />
@@ -102,4 +106,4 @@ export function NodePalette() {
       )}
     </div>
   );
-}
+});

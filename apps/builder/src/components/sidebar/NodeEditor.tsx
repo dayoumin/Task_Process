@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useMultiProcessStore } from '../../stores/multi-process-store';
 import { Plus, Trash2, Edit3, ChevronDown, CheckSquare, FileInput } from 'lucide-react';
 import type { ChecklistItem, ProcessField } from '@task-process/shared-types';
 
-export function NodeEditor() {
+export const NodeEditor = memo(function NodeEditor() {
   const { selectedNode, updateNodeData } = useMultiProcessStore();
   const [expandedSections, setExpandedSections] = useState({
     basic: true,
@@ -94,6 +94,9 @@ export function NodeEditor() {
         <button
           onClick={() => toggleSection('basic')}
           className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+          aria-label="Toggle basic information section"
+          aria-expanded={expandedSections.basic}
+          aria-controls="basic-info-section"
         >
           <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Basic Info</span>
           <ChevronDown
@@ -103,7 +106,7 @@ export function NodeEditor() {
         </button>
 
         {expandedSections.basic && (
-          <div className="px-6 pb-6 space-y-4">
+          <div id="basic-info-section" className="px-6 pb-6 space-y-4" role="region" aria-label="Basic node information">
             <div>
               <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Label</label>
               <input
@@ -135,6 +138,9 @@ export function NodeEditor() {
           <button
             onClick={() => toggleSection('checklist')}
             className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            aria-label="Toggle checklist section"
+            aria-expanded={expandedSections.checklist}
+            aria-controls="checklist-section"
           >
             <div className="flex items-center gap-2">
               <CheckSquare size={14} className="text-gray-500" />
@@ -152,7 +158,7 @@ export function NodeEditor() {
           </button>
 
           {expandedSections.checklist && (
-            <div className="px-6 pb-6">
+            <div id="checklist-section" className="px-6 pb-6" role="region" aria-label="Checklist items">
               <button
                 onClick={handleAddChecklist}
                 className="w-full h-10 mb-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all flex items-center justify-center gap-2"
@@ -206,6 +212,9 @@ export function NodeEditor() {
           <button
             onClick={() => toggleSection('fields')}
             className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+            aria-label="Toggle input fields section"
+            aria-expanded={expandedSections.fields}
+            aria-controls="fields-section"
           >
             <div className="flex items-center gap-2">
               <FileInput size={14} className="text-gray-500" />
@@ -223,7 +232,7 @@ export function NodeEditor() {
           </button>
 
           {expandedSections.fields && (
-            <div className="px-6 pb-6">
+            <div id="fields-section" className="px-6 pb-6" role="region" aria-label="Input field definitions">
               <div className="grid grid-cols-2 gap-2 mb-4">
                 <button
                   onClick={() => handleAddField('text')}
@@ -302,4 +311,4 @@ export function NodeEditor() {
       )}
     </div>
   );
-}
+});
