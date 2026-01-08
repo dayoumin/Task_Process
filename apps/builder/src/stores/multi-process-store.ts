@@ -5,6 +5,7 @@ import type { Node, Edge, Connection, NodeChange, EdgeChange } from 'reactflow';
 import type { TrackingConfig, ChecklistItem, ProcessField } from '@task-process/shared-types';
 import { TrackingService } from '../services/tracking-service';
 import { generateProcessId, generateNodeId } from '../utils/id-generator';
+import { deepClone } from '../utils/clone-helper';
 
 export interface NodeData {
   label?: string;
@@ -34,8 +35,8 @@ interface MultiProcessStore {
   // Currently selected node
   selectedNode: Node | null;
 
-  // Debounce timers (not persisted)
-  _nameUpdateTimer?: number;
+  // Debounce timers (not persisted) - Map<processId, timerId>
+  _nameUpdateTimers?: Map<string, number>;
 
   // Process management
   createProcess: () => void;
@@ -110,9 +111,9 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
         const process = get().processes.find((p) => p.id === id);
         if (!process) return;
 
-        // Use structuredClone for better performance and accuracy
+        // Use deepClone with fallback for browser compatibility
         const duplicated: ProcessData = {
-          ...structuredClone(process),
+          ...deepClone(process),
           id: generateProcessId(),
           name: `${process.name} (복사본)`,
           processId: TrackingService.generateProcessId(),
@@ -167,20 +168,38 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
         });
 
         // Debounce the updatedAt timestamp to avoid excessive re-renders
+        // Use per-process timers to avoid canceling updates for other processes
         const state = get();
-        if (state._nameUpdateTimer) {
-          clearTimeout(state._nameUpdateTimer);
+
+        // Create new Map to maintain immutability (Zustand best practice)
+        const timers = new Map(state._nameUpdateTimers || []);
+
+        // Clear existing timer for this specific process
+        const existingTimer = timers.get(id);
+        if (existingTimer) {
+          clearTimeout(existingTimer);
         }
 
+        // Set new timer for this process
         const timer = window.setTimeout(() => {
           set({
             processes: get().processes.map((p) =>
               p.id === id ? { ...p, updatedAt: new Date().toISOString() } : p
             ),
           });
+
+          // Clean up timer from map (create new Map for immutability)
+          const currentTimers = get()._nameUpdateTimers;
+          if (currentTimers) {
+            const updatedTimers = new Map(currentTimers);
+            updatedTimers.delete(id);
+            set({ _nameUpdateTimers: updatedTimers });
+          }
         }, 500);
 
-        set({ _nameUpdateTimer: timer });
+        // Update timers map
+        timers.set(id, timer);
+        set({ _nameUpdateTimers: timers });
       },
 
       updateProcessTracking: (id, updates) => {
@@ -255,7 +274,7 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
             x: node.position.x + 50,
             y: node.position.y + 50,
           },
-          data: structuredClone(node.data),
+          data: deepClone(node.data),
           selected: false,
         };
 

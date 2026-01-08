@@ -29,9 +29,44 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    // Log to console in development
     if (import.meta.env.DEV) {
       console.error('ErrorBoundary caught an error:', error, errorInfo);
     }
+
+    // Log to production error tracking (if available)
+    if (import.meta.env.PROD) {
+      // Store error in localStorage for debugging
+      try {
+        const errorLog = {
+          timestamp: new Date().toISOString(),
+          error: error.toString(),
+          stack: error.stack,
+          componentStack: errorInfo.componentStack,
+          userAgent: navigator.userAgent,
+        };
+
+        const existingLogs = localStorage.getItem('error-logs');
+        const logs = existingLogs ? JSON.parse(existingLogs) : [];
+        logs.push(errorLog);
+
+        // Keep only last 10 errors
+        if (logs.length > 10) {
+          logs.shift();
+        }
+
+        localStorage.setItem('error-logs', JSON.stringify(logs));
+      } catch (storageError) {
+        // Silently fail if localStorage is not available
+        console.error('Failed to store error log:', storageError);
+      }
+
+      // TODO: Integrate with external error tracking service
+      // Examples:
+      // - Sentry.captureException(error, { contexts: { react: errorInfo } });
+      // - fetch('/api/log-error', { method: 'POST', body: JSON.stringify({ error, errorInfo }) });
+    }
+
     this.setState({
       error,
       errorInfo,
