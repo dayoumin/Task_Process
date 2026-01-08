@@ -4,6 +4,7 @@ import { addEdge, applyNodeChanges, applyEdgeChanges } from 'reactflow';
 import type { Node, Edge, Connection, NodeChange, EdgeChange } from 'reactflow';
 import type { TrackingConfig, ChecklistItem, ProcessField } from '@task-process/shared-types';
 import { TrackingService } from '../services/tracking-service';
+import { generateProcessId, generateNodeId } from '../utils/id-generator';
 
 export interface NodeData {
   label?: string;
@@ -32,6 +33,9 @@ interface MultiProcessStore {
 
   // Currently selected node
   selectedNode: Node | null;
+
+  // Debounce timers (not persisted)
+  _nameUpdateTimer?: number;
 
   // Process management
   createProcess: () => void;
@@ -74,7 +78,7 @@ const createInitialTracking = (): TrackingConfig => ({
 const createNewProcess = (): ProcessData => {
   const now = new Date().toISOString();
   return {
-    id: `process-${Date.now()}`,
+    id: generateProcessId(),
     name: '새 프로세스',
     processId: TrackingService.generateProcessId(),
     tracking: createInitialTracking(),
@@ -106,9 +110,10 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
         const process = get().processes.find((p) => p.id === id);
         if (!process) return;
 
+        // Use structuredClone for better performance and accuracy
         const duplicated: ProcessData = {
-          ...JSON.parse(JSON.stringify(process)), // Deep copy
-          id: `process-${Date.now()}`,
+          ...structuredClone(process),
+          id: generateProcessId(),
           name: `${process.name} (복사본)`,
           processId: TrackingService.generateProcessId(),
           createdAt: new Date().toISOString(),
@@ -122,7 +127,16 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
       },
 
       deleteProcess: (id) => {
-        const processes = get().processes.filter((p) => p.id !== id);
+        const currentProcesses = get().processes;
+
+        // 마지막 프로세스 삭제 시 확인
+        if (currentProcesses.length === 1) {
+          if (!window.confirm('마지막 프로세스를 삭제하면 새 프로세스가 생성됩니다. 계속하시겠습니까?')) {
+            return;
+          }
+        }
+
+        const processes = currentProcesses.filter((p) => p.id !== id);
         const activeProcessId = get().activeProcessId === id ? (processes[0]?.id || null) : get().activeProcessId;
 
         set({
@@ -145,11 +159,28 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
       },
 
       updateProcessName: (id, name) => {
+        // Immediately update the UI
         set({
           processes: get().processes.map((p) =>
-            p.id === id ? { ...p, name, updatedAt: new Date().toISOString() } : p
+            p.id === id ? { ...p, name } : p
           ),
         });
+
+        // Debounce the updatedAt timestamp to avoid excessive re-renders
+        const state = get();
+        if (state._nameUpdateTimer) {
+          clearTimeout(state._nameUpdateTimer);
+        }
+
+        const timer = window.setTimeout(() => {
+          set({
+            processes: get().processes.map((p) =>
+              p.id === id ? { ...p, updatedAt: new Date().toISOString() } : p
+            ),
+          });
+        }, 500);
+
+        set({ _nameUpdateTimer: timer });
       },
 
       updateProcessTracking: (id, updates) => {
@@ -171,7 +202,7 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
         if (!activeProcess) return;
 
         const newNode: Node = {
-          id: `${type}-${Date.now()}`,
+          id: generateNodeId(type),
           type,
           position,
           data: {
@@ -219,12 +250,12 @@ export const useMultiProcessStore = create<MultiProcessStore>()(
 
         const newNode: Node = {
           ...node,
-          id: `${node.type}-${Date.now()}`,
+          id: generateNodeId(node.type as string),
           position: {
             x: node.position.x + 50,
             y: node.position.y + 50,
           },
-          data: JSON.parse(JSON.stringify(node.data)),
+          data: structuredClone(node.data),
           selected: false,
         };
 

@@ -29,7 +29,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    if (import.meta.env.DEV) {
+      console.error('ErrorBoundary caught an error:', error, errorInfo);
+    }
     this.setState({
       error,
       errorInfo,
@@ -50,9 +52,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-          <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+          <div className="max-w-md w-full bg-white border border-gray-300 p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-red-50 flex items-center justify-center border border-red-200">
                 <svg
                   className="w-6 h-6 text-red-600"
                   fill="none"
@@ -68,46 +70,46 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                 </svg>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">오류가 발생했습니다</h1>
+                <h1 className="text-lg font-semibold text-gray-900">오류가 발생했습니다</h1>
                 <p className="text-sm text-gray-600">애플리케이션에 예기치 않은 오류가 발생했습니다</p>
               </div>
             </div>
 
             {this.state.error && (
-              <div className="mb-4 p-3 bg-red-50 rounded border border-red-200">
-                <p className="text-sm font-mono text-red-800 break-all">
+              <div className="mb-4 p-4 bg-red-50 border border-red-200">
+                <p className="text-xs font-mono text-red-800 break-all">
                   {this.state.error.toString()}
                 </p>
               </div>
             )}
 
             {import.meta.env.DEV && this.state.errorInfo && (
-              <details className="mb-4 p-3 bg-gray-50 rounded border border-gray-200">
-                <summary className="text-sm font-semibold text-gray-700 cursor-pointer">
+              <details className="mb-6 p-4 bg-gray-50 border border-gray-200">
+                <summary className="text-xs font-semibold text-gray-700 cursor-pointer uppercase tracking-wider">
                   오류 상세 정보 (개발 모드)
                 </summary>
-                <pre className="mt-2 text-xs text-gray-600 overflow-auto max-h-40">
+                <pre className="mt-3 text-xs text-gray-600 overflow-auto max-h-40">
                   {this.state.errorInfo.componentStack}
                 </pre>
               </details>
             )}
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 mb-4">
               <button
                 onClick={this.handleReset}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors font-medium"
+                className="flex-1 h-10 px-4 bg-gray-900 text-white text-sm font-medium hover:bg-gray-800 transition-colors"
               >
                 페이지 새로고침
               </button>
               <button
                 onClick={() => window.history.back()}
-                className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors font-medium"
+                className="flex-1 h-10 px-4 bg-white border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-50 hover:border-gray-400 transition-all"
               >
                 이전 페이지
               </button>
             </div>
 
-            <p className="mt-4 text-xs text-gray-500 text-center">
+            <p className="text-xs text-gray-500 text-center">
               문제가 계속되면 관리자에게 문의하세요
             </p>
           </div>
