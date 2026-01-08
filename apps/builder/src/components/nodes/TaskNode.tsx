@@ -103,6 +103,7 @@ export const TaskNode = memo(function TaskNode({ id, data, selected }: NodeProps
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               className="nodrag w-full font-semibold text-gray-900 bg-transparent border-b-2 border-blue-500 outline-none px-0"
+              aria-label="노드 레이블 편집 (Enter로 저장, Esc로 취소)"
             />
           ) : (
             <div

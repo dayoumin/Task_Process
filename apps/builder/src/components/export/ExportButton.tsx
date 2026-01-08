@@ -94,7 +94,9 @@ export function ExportButton() {
       setErrors([]);
     } catch (error) {
       const userMessage = '내보내기 중 오류가 발생했습니다. 다시 시도해주세요.';
-      console.error('Export error:', error);
+      if (import.meta.env.DEV) {
+        console.error('Export error:', error);
+      }
       setErrors([userMessage]);
       setShowError(true);
     }
